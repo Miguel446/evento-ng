@@ -1,1 +1,76 @@
-<p>cliente-form works!</p>
+<div style="margin: 20px;" class="grid-container">
+    <h1 class="mat-h1">Cliente</h1>
+    <mat-card class="dashboard-card">
+        <mat-card-content class="dashboard-card-content">
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Company (disabled)</mat-label>
+                    <input matInput disabled value="Google">
+                </mat-form-field>
+            
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nome Completo</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>CPF</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Endereço</mat-label>
+                                <input matInput placeholder="Ex. 100 Main St">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Data de Nascimento</mat-label>
+                                <input matInput placeholder="Ex. dd/mm/yyyy" type="date" >
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+            
+                <table class="example-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Cidade</mat-label>
+                                <input matInput placeholder="Ex. San Francisco">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Estado</mat-label>
+                                <input matInput placeholder="Ex. California">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="example-full-width">
+                                <mat-label>CEP</mat-label>
+                                <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" value="94043">
+                                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <mat-divider></mat-divider>
+                <br>
+                <div style="text-align:center;"> <button type="button" mat-raised-button color="basic">Voltar</button>&nbsp;&nbsp;&nbsp;<button type="button" mat-raised-button color="primary">Salvar</button> </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+

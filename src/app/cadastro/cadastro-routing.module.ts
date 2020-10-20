@@ -13,8 +13,16 @@ export const routes: Routes = [
         component: ClienteListarComponent,
     },
     {
+        path: 'cadastro/cliente/form',
+        component: ClienteFormComponent,
+    },
+    {
         path: 'cadastro/forma-pagamento',
         component: FormaPagamentoListarComponent,
+    },
+    {
+        path: 'cadastro/forma-pagamento/form',
+        component: FormaPagamentoFormComponent,
     }
 ];
 

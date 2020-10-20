@@ -15,6 +15,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
 
 import { CadastroComponent } from './cadastro.component';
 import { ClienteFormComponent } from './cliente/form/cliente-form.component';
@@ -45,6 +47,8 @@ import { FormaPagamentoListarComponent } from './forma-pagamento/listar/forma-pa
     MatCardModule,
     MatMenuModule,
     MatBadgeModule,
+    MatTableModule,
+    MatInputModule
   ]
 })
 export class CadastroModule { }

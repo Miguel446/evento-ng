@@ -75,11 +75,15 @@
         </button>
       </span>
       <span class="spacer"></span>
-      <button mat-icon-button>
-      <span matBadge="1" matBadgeColor="accent" matBadgeSize="small" class="material-icons" style="font-size: 24px;">
-        notifications
-      </span>
+      <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        <span matBadge="2" matBadgeColor="accent" matBadgeSize="small" class="material-icons" style="font-size: 24px;">
+          notifications
+        </span>
       </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item>Notification 1</button>
+        <button mat-menu-item>Notification 2</button>
+      </mat-menu>
     </mat-toolbar>
     <router-outlet></router-outlet> 
   </mat-sidenav-content>
