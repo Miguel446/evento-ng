@@ -1,0 +1,86 @@
+<mat-sidenav-container class="sidenav-container" >
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <br>
+    <mat-list-item><img class="logo-empresa" src="assets/img/company-logo.png"> <span class="nome-empresa"> Nome Empresa</span></mat-list-item>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-list-item><img class="logo-user" src="assets/img/az-admin.png"> <span class="username"> ADMIN</span></mat-list-item>
+    <br>
+    <mat-divider></mat-divider>
+    <h1></h1>
+    <span style="color: gray;">Menu</span>
+    <mat-nav-list>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title (click)="$event.stopPropagation();" (click)="inicio()">
+            <span class="material-icons"> home</span>&nbsp;&nbsp; Inicio
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="material-icons">shopping_cart</span>&nbsp;&nbsp; Cadastro
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item (click)="cliente()"> Cliente </a>
+        <a mat-list-item (click)="forma_pagamento()">Forma de Pagamento</a>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="material-icons">monetization_on</span>&nbsp;&nbsp; Financeiro
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item href="#">Recebimentos</a>
+        <a mat-list-item href="#">Pagamentos</a>
+        <a mat-list-item href="#">Fluxo de Caixa</a>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="material-icons">insert_chart_outlined</span>&nbsp;&nbsp; Relatórios
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item href="#">Formas de Pagamento</a>
+        <a mat-list-item href="#">Vendas</a>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span class="material-icons">security</span>&nbsp;&nbsp; Segurança
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item href="#">Usuário</a>
+        <a mat-list-item href="#">Perfil</a>
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle >
+        <mat-expansion-panel-header>
+          <mat-panel-title (click)="$event.stopPropagation();">
+            <span class="material-icons"> exit_to_app</span>&nbsp;&nbsp; Sair
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon style="font-size: 24px;" aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      </span>
+      <span class="spacer"></span>
+      <button mat-icon-button>
+      <span matBadge="1" matBadgeColor="accent" matBadgeSize="small" class="material-icons" style="font-size: 24px;">
+        notifications
+      </span>
+      </button>
+    </mat-toolbar>
+    <router-outlet></router-outlet> 
+  </mat-sidenav-content>
+</mat-sidenav-container>

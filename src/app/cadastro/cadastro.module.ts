@@ -1,9 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,24 +11,27 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 
-import { AppRoutingModule } from './app-routing.module';
-import { CadastroRoutingModule } from './cadastro/cadastro-routing.module';
-import { CadastroModule } from './cadastro/cadastro.module';
+import { CadastroComponent } from './cadastro.component';
+import { ClienteFormComponent } from './cliente/form/cliente-form.component';
+import { ClienteListarComponent } from './cliente/listar/cliente-listar.component';
+import { FormaPagamentoFormComponent } from './forma-pagamento/form/forma-pagamento-form.component';
+import { FormaPagamentoListarComponent } from './forma-pagamento/listar/forma-pagamento-listar.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    DashboardComponent
+  declarations: [CadastroComponent,
+    ClienteFormComponent,
+    ClienteListarComponent,
+    FormaPagamentoFormComponent,
+    FormaPagamentoListarComponent
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
+    RouterModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
@@ -43,12 +45,6 @@ import { CadastroModule } from './cadastro/cadastro.module';
     MatCardModule,
     MatMenuModule,
     MatBadgeModule,
-    CadastroModule,
-    CadastroRoutingModule,
-
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  ]
 })
-export class AppModule { }
+export class CadastroModule { }

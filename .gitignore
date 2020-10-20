@@ -7,6 +7,9 @@
 # Only exists if Bazel was run
 /bazel-out
 
+#vs code workspace
+angular-workspace.code-workspace
+
 # dependencies
 /node_modules
 
