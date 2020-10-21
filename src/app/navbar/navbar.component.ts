@@ -17,8 +17,12 @@ export class NavbarComponent {
     this.router.navigate(['/']);
   }
 
-  cliente() {
-    this.router.navigate(['/cadastro/cliente']);
+  participante() {
+    this.router.navigate(['/cadastro/participante']);
+  }
+
+  evento() {
+    this.router.navigate(['/cadastro/evento']);
   }
 
   forma_pagamento() {

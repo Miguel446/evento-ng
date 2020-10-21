@@ -18,18 +18,21 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 
-import { CadastroComponent } from './cadastro.component';
-import { ClienteFormComponent } from './cliente/form/cliente-form.component';
-import { ClienteListarComponent } from './cliente/listar/cliente-listar.component';
+import { ParticipanteFormComponent } from './participante/form/participante-form.component';
+import { ParticipanteListarComponent } from './participante/listar/participante-listar.component';
 import { FormaPagamentoFormComponent } from './forma-pagamento/form/forma-pagamento-form.component';
 import { FormaPagamentoListarComponent } from './forma-pagamento/listar/forma-pagamento-listar.component';
+import { EventoListarComponent } from './evento/listar/evento-listar.component';
+import { EventoFormComponent } from './evento/form/evento-form.component';
 
 @NgModule({
-  declarations: [CadastroComponent,
-    ClienteFormComponent,
-    ClienteListarComponent,
+  declarations: [
+    ParticipanteFormComponent,
+    ParticipanteListarComponent,
     FormaPagamentoFormComponent,
-    FormaPagamentoListarComponent
+    FormaPagamentoListarComponent,
+    EventoListarComponent,
+    EventoFormComponent
   ],
   imports: [
     CommonModule,

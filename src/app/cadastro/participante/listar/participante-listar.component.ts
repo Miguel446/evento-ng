@@ -32,11 +32,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-cliente-listar',
-  templateUrl: './cliente-listar.component.html',
-  styleUrls: ['./cliente-listar.component.css']
+  selector: 'app-participante-listar',
+  templateUrl: './participante-listar.component.html',
+  styleUrls: ['./participante-listar.component.css']
 })
-export class ClienteListarComponent implements OnInit {
+export class ParticipanteListarComponent implements OnInit {
 
   constructor(private router: Router) { }
 
@@ -44,7 +44,7 @@ export class ClienteListarComponent implements OnInit {
   }
 
   form() {
-    this.router.navigate(["/cadastro/cliente/form"]);
+    this.router.navigate(["/cadastro/participante/form"]);
   }
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
