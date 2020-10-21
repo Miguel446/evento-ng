@@ -3,6 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
+    <div class="no-v-scroll">
     <br>
     <mat-list-item><img class="logo-empresa" src="assets/img/company-logo.png"> <span class="nome-empresa"> Nome Empresa</span></mat-list-item>
     <br>
@@ -11,9 +12,11 @@
     <mat-list-item><img class="logo-user" src="assets/img/az-admin.png"> <span class="username"> ADMIN</span></mat-list-item>
     <br>
     <mat-divider></mat-divider>
-    <h1></h1>
+    <br>
     <span style="color: gray;">Menu</span>
+    <ng-scrollbar >
     <mat-nav-list>
+      <div style="overflow-y: auto;">
       <mat-expansion-panel hideToggle >
         <mat-expansion-panel-header>
           <mat-panel-title (click)="$event.stopPropagation();" (click)="inicio()">
@@ -67,7 +70,10 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
       </mat-expansion-panel>
+      </div>
     </mat-nav-list>
+    </ng-scrollbar>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -89,8 +95,9 @@
     </mat-toolbar>
 
     <!-- Saída das rotas -->
+    <ng-scrollbar>
     <router-outlet></router-outlet> 
-
+    </ng-scrollbar>
   </mat-sidenav-content>
 
 </mat-sidenav-container>

@@ -17,6 +17,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 
+import { NgScrollbarModule, NG_SCROLLBAR_OPTIONS } from 'ngx-scrollbar';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +46,11 @@ import { CadastroModule } from './cadastro/cadastro.module';
     MatCardModule,
     MatMenuModule,
     MatBadgeModule,
+    NgScrollbarModule.withConfig(
+      {
+        visibility: 'hover'
+      }
+    ),
     CadastroModule,
     CadastroRoutingModule,
 
