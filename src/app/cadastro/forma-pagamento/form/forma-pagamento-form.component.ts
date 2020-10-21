@@ -8,9 +8,13 @@ import { Router } from '@angular/router';
 })
 export class FormaPagamentoFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  voltar() {
+    this.router.navigate(['/cadastro/forma-pagamento']);
   }
 
 }

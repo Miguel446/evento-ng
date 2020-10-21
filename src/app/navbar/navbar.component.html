@@ -14,7 +14,7 @@
     <h1></h1>
     <span style="color: gray;">Menu</span>
     <mat-nav-list>
-      <mat-expansion-panel hideToggle>
+      <mat-expansion-panel hideToggle >
         <mat-expansion-panel-header>
           <mat-panel-title (click)="$event.stopPropagation();" (click)="inicio()">
             <span class="material-icons"> home</span>&nbsp;&nbsp; Inicio
@@ -28,6 +28,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <a mat-list-item (click)="participante()"> Participante </a>
+        <a mat-list-item (click)="empresa()"> Empresa </a>
         <a mat-list-item (click)="evento()">Evento</a>
         <a mat-list-item (click)="forma_pagamento()">Forma de Pagamento</a>
       </mat-expansion-panel>
@@ -86,6 +87,10 @@
         <button mat-menu-item>Notification 2</button>
       </mat-menu>
     </mat-toolbar>
+
+    <!-- Saída das rotas -->
     <router-outlet></router-outlet> 
+
   </mat-sidenav-content>
+
 </mat-sidenav-container>

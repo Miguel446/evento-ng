@@ -3,7 +3,7 @@
 }
 
 .sidenav {
-  width: 250px;
+  width: 260px;
 }
 
 .sidenav .mat-toolbar {
@@ -77,5 +77,9 @@ mat-expansion-panel{
 
 .nome-empresa{
   margin-left: 20px;
+}
+
+mat-sidenav{
+  overflow-y: hidden;
 }
 

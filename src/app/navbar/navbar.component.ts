@@ -21,6 +21,10 @@ export class NavbarComponent {
     this.router.navigate(['/cadastro/participante']);
   }
 
+  empresa() {
+    this.router.navigate(['/cadastro/empresa']);
+  }
+
   evento() {
     this.router.navigate(['/cadastro/evento']);
   }

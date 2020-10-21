@@ -7,6 +7,8 @@ import { FormaPagamentoFormComponent } from './forma-pagamento/form/forma-pagame
 import { FormaPagamentoListarComponent } from './forma-pagamento/listar/forma-pagamento-listar.component';
 import { EventoFormComponent } from './evento/form/evento-form.component';
 import { EventoListarComponent } from './evento/listar/evento-listar.component';
+import { EmpresaFormComponent } from './empresa/form/empresa-form.component';
+import { EmpresaListarComponent } from './empresa/listar/empresa-listar.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +34,14 @@ export const routes: Routes = [
     {
         path: 'cadastro/evento/form',
         component: EventoFormComponent,
+    },
+    {
+        path: 'cadastro/empresa',
+        component: EmpresaListarComponent,
+    },
+    {
+        path: 'cadastro/empresa/form',
+        component: EmpresaFormComponent,
     }
 ];
 
