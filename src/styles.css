@@ -14,3 +14,7 @@ td {
 table {
   width: 100%;
 }
+
+.ok .mat-simple-snackbar-action  {
+    color: #1bcf66
+}

@@ -17,6 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ParticipanteFormComponent } from './participante/form/participante-form.component';
 import { ParticipanteListarComponent } from './participante/listar/participante-listar.component';
@@ -55,7 +56,8 @@ import { EmpresaFormComponent } from './empresa/form/empresa-form.component';
     MatMenuModule,
     MatBadgeModule,
     MatTableModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule
   ]
 })
 export class CadastroModule { }
