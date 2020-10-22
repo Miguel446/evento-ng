@@ -86,10 +86,7 @@ mat-expansion-panel{
   flex-direction: column;
 }
 
-::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
-}
+
 
 
 
