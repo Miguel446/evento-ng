@@ -24,6 +24,7 @@ export class EmpresaFormComponent implements OnInit {
       duration: 3000,
       panelClass: ['ok'], // para msg de erro, remover essa linha
     });
+    this.voltar();
   }
 
 }
