@@ -35,10 +35,17 @@
         <a mat-list-item (click)="evento()">Evento</a>
         <a mat-list-item (click)="forma_pagamento()">Forma de Pagamento</a>
       </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title (click)="$event.stopPropagation();" (click)="inscricao()">
+            <span class="material-icons">qr_code_2</span>&nbsp;&nbsp; Inscrição
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <span class="material-icons">monetization_on</span>&nbsp;&nbsp; Financeiro
+            <span class="material-icons">monetization_on</span>&nbsp;&nbsp; Caixa
           </mat-panel-title>
         </mat-expansion-panel-header>
         <a mat-list-item href="#">Recebimentos</a>

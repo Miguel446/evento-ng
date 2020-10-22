@@ -1,9 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,25 +15,17 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { NgScrollbarModule, NG_SCROLLBAR_OPTIONS } from 'ngx-scrollbar';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-
-import { AppRoutingModule } from './app-routing.module';
-import { CadastroRoutingModule } from './cadastro/cadastro-routing.module';
-import { CadastroModule } from './cadastro/cadastro.module';
-import { InscricaoModule } from './inscricao/inscricao.module';
-import { InscricaoRoutingModule } from './inscricao/inscricao-routing.module';
+import { InscricaoFormComponent } from './form/inscricao-form.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    DashboardComponent
-  ],
+  declarations: [InscricaoFormComponent],
   imports: [
-    BrowserModule,
+    CommonModule,
+    RouterModule,
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
@@ -48,19 +39,9 @@ import { InscricaoRoutingModule } from './inscricao/inscricao-routing.module';
     MatCardModule,
     MatMenuModule,
     MatBadgeModule,
-    NgScrollbarModule.withConfig(
-      {
-        visibility: 'hover'
-      }
-    ),
-    CadastroModule,
-    CadastroRoutingModule,
-    InscricaoModule,
-    InscricaoRoutingModule,
-
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    MatTableModule,
+    MatInputModule,
+    MatSnackBarModule
+  ]
 })
-export class AppModule { }
+export class InscricaoModule { }
