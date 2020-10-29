@@ -27,6 +27,8 @@ import { EventoListarComponent } from './evento/listar/evento-listar.component';
 import { EventoFormComponent } from './evento/form/evento-form.component';
 import { EmpresaListarComponent } from './empresa/listar/empresa-listar.component';
 import { EmpresaFormComponent } from './empresa/form/empresa-form.component';
+import { CategoriaFormComponent } from './categoria/form/categoria-form.component';
+import { CategoriaListarComponent } from './categoria/listar/categoria-listar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { EmpresaFormComponent } from './empresa/form/empresa-form.component';
     EventoListarComponent,
     EventoFormComponent,
     EmpresaListarComponent,
-    EmpresaFormComponent
+    EmpresaFormComponent,
+    CategoriaFormComponent,
+    CategoriaListarComponent
   ],
   imports: [
     CommonModule,

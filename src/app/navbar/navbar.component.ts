@@ -37,6 +37,10 @@ export class NavbarComponent {
     this.router.navigate(['/inscricao/form']);
   }
 
+  categoria() {
+    this.router.navigate(['/cadastro/categoria']);
+  }
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),

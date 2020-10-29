@@ -9,6 +9,8 @@ import { EventoFormComponent } from './evento/form/evento-form.component';
 import { EventoListarComponent } from './evento/listar/evento-listar.component';
 import { EmpresaFormComponent } from './empresa/form/empresa-form.component';
 import { EmpresaListarComponent } from './empresa/listar/empresa-listar.component';
+import { CategoriaFormComponent } from './categoria/form/categoria-form.component';
+import { CategoriaListarComponent } from './categoria/listar/categoria-listar.component';
 
 export const routes: Routes = [
     {
@@ -42,6 +44,14 @@ export const routes: Routes = [
     {
         path: 'cadastro/empresa/form',
         component: EmpresaFormComponent,
+    },
+    {
+        path: 'cadastro/categoria',
+        component: CategoriaListarComponent,
+    },
+    {
+        path: 'cadastro/categoria/form',
+        component: CategoriaFormComponent,
     }
 ];
 
