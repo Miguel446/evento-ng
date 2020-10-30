@@ -46,6 +46,10 @@ export const routes: Routes = [
         component: EmpresaFormComponent,
     },
     {
+        path: 'cadastro/empresa/form/:id',
+        component: EmpresaFormComponent
+    },
+    {
         path: 'cadastro/categoria',
         component: CategoriaListarComponent,
     },

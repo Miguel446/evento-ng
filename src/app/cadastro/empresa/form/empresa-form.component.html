@@ -72,6 +72,20 @@
                         </td>
                     </tr>
                 </table>
+
+                <table style="width: 50%;" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width">
+                                <mat-select placeholder="Categoria" formControlName="categoria" [(value)]="categoriaId">
+                                    <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                                        {{ categoria.nome }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
                 <br>
                 <mat-divider></mat-divider>
                 <br>

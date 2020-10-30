@@ -1,35 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { EmpresaService } from '../../../shared/services/cadastro/empresa.service';
+import { Empresa } from '../../../shared/models/empresa.model';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Boron', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Neon', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Beryllium', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Hydrogen', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { ConfirmarDialog } from '../../../shared/dialogs/remover.dialog';
 
 @Component({
   selector: 'app-empresa-listar',
@@ -38,16 +16,67 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class EmpresaListarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  dataSource: MatTableDataSource<Empresa>;
+  colunas: string[] = ['nomeFantasia', 'razaoSocial', 'cidade', 'categoria', 'acao'];
+
+  constructor(
+    private router: Router,
+    private service: EmpresaService,
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
+    this.listar();
   }
 
   form() {
     this.router.navigate(['/cadastro/empresa/form']);
   }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  listar() {
+    this.service.listar().subscribe(
+      data => {
+        const empresas = data as Empresa[];
+        this.dataSource = new MatTableDataSource<Empresa>(empresas);
+      },
+      e => {
+        this.errorAlert(e);
+      }
+    );
+  }
+
+  removerDialog(id: string) {
+    console.log(id);
+    const dialog = this.dialog.open(ConfirmarDialog, {});
+    dialog.afterClosed().subscribe(remover => {
+      if (remover) {
+        this.remover(Number(id));
+      }
+    });
+  }
+
+  remover(id: number) {
+    this.service.remover(id).subscribe(
+      data => {
+        this.snackbar.open('Item removido!', 'Sucesso', {
+          duration: 3000,
+          panelClass: ['ok'],
+        });
+        this.listar();
+      },
+      e => {
+        this.errorAlert(e);
+      }
+    );
+  }
+
+  private errorAlert(e: any) {
+    let msg: string = "Tente novamente em instantes.";
+    if (e.status != 0) {
+      msg = e.error.msg;
+    }
+    this.snackbar.open(msg, 'Erro', { duration: 3000 });
+  }
 
 }

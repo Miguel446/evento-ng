@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSelect } from '@angular/material/select';
 
 import { Empresa } from '../../../shared/models/empresa.model';
 
 import { EmpresaService } from '../../../shared/services/cadastro/empresa.service';
+import { CategoriaService } from '../../../shared/services/cadastro/categoria.service';
 import { Categoria } from 'src/app/shared/models/categoria.model';
 
 @Component({
@@ -16,14 +18,19 @@ import { Categoria } from 'src/app/shared/models/categoria.model';
 })
 export class EmpresaFormComponent implements OnInit {
 
+  @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
   form: FormGroup;
   empresaId: string;
+  categoriaId: string;
+
+  categorias: Categoria[];
 
   constructor(
     private router: Router,
     private snackbar: MatSnackBar,
     private route: ActivatedRoute,
     private service: EmpresaService,
+    private categoriaService: CategoriaService,
     private fb: FormBuilder,
   ) { }
 
@@ -34,9 +41,9 @@ export class EmpresaFormComponent implements OnInit {
     } else {
       this.gerarForm();
     }
-  }
 
-  // TODO verificar como configurar categoria
+    this.listarCategorias();
+  }
 
   gerarForm() {
     this.form = this.fb.group({
@@ -48,6 +55,7 @@ export class EmpresaFormComponent implements OnInit {
       bairro: ['', [Validators.required]],
       cidade: ['', [Validators.required]],
       estado: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
+      categoria: ['', Validators.required],
       id: [this.empresaId]
     });
   }
@@ -64,15 +72,12 @@ export class EmpresaFormComponent implements OnInit {
           bairro: [data.bairro, [Validators.required]],
           cidade: [data.cidade, [Validators.required]],
           estado: [data.estado, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
+          categoria: [data.categoria.id, [Validators.required]],
           id: [this.empresaId]
         });
       },
       e => {
-        let msg: string = "Tente novamente em instantes.";
-        if (e.status != 0) {
-          msg = e.error.msg;
-        }
-        this.snackbar.open(msg, 'Erro', { duration: 3000 });
+        this.erroAlert(e);
       }
     );
   }
@@ -82,8 +87,9 @@ export class EmpresaFormComponent implements OnInit {
       return;
     }
 
-    var empresa: Empresa = this.form.value;
-    empresa.categoria = new Categoria(153);
+    let empresa: Empresa = this.form.value;
+    empresa.categoria = new Categoria(Number(this.categoriaId));
+
     this.service.cadastrar(empresa).subscribe(
       data => {
         this.snackbar.open('Cadastro concluído!', 'Sucesso', {
@@ -94,17 +100,32 @@ export class EmpresaFormComponent implements OnInit {
         this.voltar();
       },
       e => {
-        let msg: string = "Tente novamente em instantes.";
-        if (e.status != 0) {
-          msg = e.error.msg;
-        }
-        this.snackbar.open(msg, 'Erro', { duration: 3000 });
+        this.erroAlert(e);
+      }
+    );
+  }
+
+  listarCategorias() {
+    this.categoriaService.listar().subscribe(
+      data => {
+        this.categorias = data as Categoria[];
+      },
+      e => {
+        this.erroAlert(e);
       }
     );
   }
 
   voltar() {
     this.router.navigate(['/cadastro/empresa']);
+  }
+
+  private erroAlert(e: any) {
+    let msg: string = "Tente novamente em instantes.";
+    if (e.status != 0) {
+      msg = e.error.msg;
+    }
+    this.snackbar.open(msg, 'Erro', { duration: 3000 });
   }
 
 }
