@@ -75,6 +75,7 @@ export class EmpresaFormComponent implements OnInit {
           categoria: [data.categoria.id, [Validators.required]],
           id: [this.empresaId]
         });
+        this.categoriaId = data.categoria.id;
       },
       e => {
         this.erroAlert(e);
@@ -89,7 +90,7 @@ export class EmpresaFormComponent implements OnInit {
 
     let empresa: Empresa = this.form.value;
     empresa.categoria = new Categoria(Number(this.categoriaId));
-
+    console.log(empresa);
     this.service.cadastrar(empresa).subscribe(
       data => {
         this.snackbar.open('Cadastro concluído!', 'Sucesso', {

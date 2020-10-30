@@ -51,6 +51,7 @@ export class ParticipanteFormComponent implements OnInit {
 
     this.listarCategorias();
     this.listarEmpresas();
+
   }
 
   gerarForm() {
@@ -72,7 +73,6 @@ export class ParticipanteFormComponent implements OnInit {
   buscar() {
     this.service.buscar(Number(this.participanteId)).subscribe(
       data => {
-        console.log(data);
         this.form = this.fb.group({
           nome: [data.nome, [Validators.required, Validators.minLength(3)]],
           cracha: [data.cracha, [Validators.required]],
@@ -82,12 +82,12 @@ export class ParticipanteFormComponent implements OnInit {
           bairro: [data.bairro, [Validators.required]],
           cidade: [data.cidade, [Validators.required]],
           estado: [data.estado, [Validators.required]],
-          categoria: [data.categoria.id, [Validators.required]],
-          empresa: [data.empresa.id, [Validators.required]],
+          categoria: [data?.categoria?.id, [Validators.required]],
+          empresa: [data?.empresa?.id, [Validators.required]],
           id: [this.participanteId]
         });
-        this.empresaId = data.empresa.id;
-        this.categoriaId = data.categoria.id;
+        this.empresaId = data?.empresa?.id;
+        this.categoriaId = data?.categoria?.id;
       },
       e => {
         this.erroAlert(e);
@@ -103,7 +103,6 @@ export class ParticipanteFormComponent implements OnInit {
     let participante: Participante = this.form.value;
     participante.empresa = new Empresa(Number(this.empresaId));
     participante.categoria = new Categoria(Number(this.categoriaId));
-    console.log(participante);
 
     this.service.cadastrar(participante).subscribe(
       data => {

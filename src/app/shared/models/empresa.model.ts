@@ -4,6 +4,7 @@ export class Empresa {
 
     constructor(
         public id?: number,
+        public status?: boolean,
         public razaoSocial?: string,
         public nomeFantasia?: string,
         public cnpj?: string,

@@ -5,6 +5,7 @@ export class Evento {
         public local: string,
         public dataInicial: string,
         public dataFinal: string,
+        public status?: boolean,
         public id?: number,
     ) { }
 

@@ -17,6 +17,8 @@ export class ParticipanteService {
   constructor(private http: HttpClient) { }
 
   cadastrar(participante: Participante): Observable<any> {
+    console.log(participante.empresa.id);
+    console.log(participante.categoria.id);
     return this.http.post(env.baseUrl + this.PATH, participante);
   }
 

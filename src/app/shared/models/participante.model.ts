@@ -14,6 +14,7 @@ export class Participante {
         public estado: string,
         public empresa: Empresa,
         public categoria: Categoria,
+        public status?: boolean,
         public id?: number,
     ) { }
 
