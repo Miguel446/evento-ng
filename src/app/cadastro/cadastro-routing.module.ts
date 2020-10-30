@@ -22,6 +22,10 @@ export const routes: Routes = [
         component: ParticipanteFormComponent,
     },
     {
+        path: 'cadastro/participante/form/:id',
+        component: ParticipanteFormComponent
+    },
+    {
         path: 'cadastro/forma-pagamento',
         component: FormaPagamentoListarComponent,
     },
@@ -30,11 +34,19 @@ export const routes: Routes = [
         component: FormaPagamentoFormComponent,
     },
     {
+        path: 'cadastro/forma-pagamento/form/:id',
+        component: FormaPagamentoFormComponent,
+    },
+    {
         path: 'cadastro/evento',
         component: EventoListarComponent,
     },
     {
         path: 'cadastro/evento/form',
+        component: EventoFormComponent,
+    },
+    {
+        path: 'cadastro/evento/form/:id',
         component: EventoFormComponent,
     },
     {

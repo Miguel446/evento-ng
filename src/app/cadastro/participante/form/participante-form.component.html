@@ -2,20 +2,37 @@
     <h1 class="mat-h1">Participante</h1>
     <mat-card class="dashboard-card" style="width:80%">
         <mat-card-content class="dashboard-card-content">
-            <form>
-
+            <form [formGroup]="form" novalidate>
+                <input matInput formControlName="id" style="display: none;">
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Nome Completo</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="nome">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CPF</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="cpf">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width">
+                                <mat-label>Crachá</mat-label>
+                                <input matInput formControlName="cracha">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="full-width">
+                                <mat-label>CEP</mat-label>
+                                <input matInput formControlName="cep">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -26,13 +43,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Endereço</mat-label>
-                                <input matInput placeholder="Ex. 100 Main St">
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="full-width">
-                                <mat-label>Data de Nascimento</mat-label>
-                                <input matInput placeholder="Ex. dd/mm/yyyy" type="date" >
+                                <input matInput formControlName="endereco">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -42,21 +53,43 @@
                     <tr>
                         <td>
                             <mat-form-field class="full-width">
+                                <mat-label>Bairro</mat-label>
+                                <input matInput formControlName="bairro">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field class="full-width">
                                 <mat-label>Cidade</mat-label>
-                                <input matInput placeholder="Ex. San Francisco">
+                                <input matInput formControlName="cidade">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Estado</mat-label>
-                                <input matInput placeholder="Ex. California">
+                                <input matInput placeholder="Ex: PA" formControlName="estado" maxlength="2">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="full-width">
+                                <mat-select placeholder="Categoria" formControlName="categoria" [(value)]="categoriaId">
+                                    <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                                        {{ categoria.nome }}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
-                                <mat-label>CEP</mat-label>
-                                <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" >
-                                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                                <mat-select placeholder="Empresa" formControlName="empresa" [(value)]="empresaId">
+                                    <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">
+                                        {{ empresa.nomeFantasia }}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </td>
                     </tr>
@@ -66,7 +99,7 @@
                 <br>
                 <div style="text-align:center;">
                     <button type="button" mat-raised-button color="basic" (click)="voltar()">Voltar</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" mat-raised-button color="primary" (click)="salvar()">Salvar</button> </div>
+                    <button type="button" mat-raised-button color="primary" [disabled]="form.invalid" (click)="salvar()">Salvar</button> </div>
             </form>
         </mat-card-content>
     </mat-card>

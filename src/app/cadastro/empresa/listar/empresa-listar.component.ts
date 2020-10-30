@@ -47,7 +47,6 @@ export class EmpresaListarComponent implements OnInit {
   }
 
   removerDialog(id: string) {
-    console.log(id);
     const dialog = this.dialog.open(ConfirmarDialog, {});
     dialog.afterClosed().subscribe(remover => {
       if (remover) {
