@@ -52,6 +52,10 @@ export const routes: Routes = [
     {
         path: 'cadastro/categoria/form',
         component: CategoriaFormComponent,
+    },
+    {
+        path: 'cadastro/categoria/form/:id',
+        component: CategoriaFormComponent
     }
 ];
 

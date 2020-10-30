@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -18,6 +19,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { ParticipanteFormComponent } from './participante/form/participante-form.component';
 import { ParticipanteListarComponent } from './participante/listar/participante-listar.component';
@@ -30,6 +33,11 @@ import { EmpresaFormComponent } from './empresa/form/empresa-form.component';
 import { CategoriaFormComponent } from './categoria/form/categoria-form.component';
 import { CategoriaListarComponent } from './categoria/listar/categoria-listar.component';
 
+import { CategoriaService } from '../shared/services/cadastro/categoria.service';
+import { SharedModule } from '../shared/shared.module';
+
+import { ConfirmarDialog } from './categoria/listar/categoria-listar.component';
+
 @NgModule({
   declarations: [
     ParticipanteFormComponent,
@@ -41,13 +49,17 @@ import { CategoriaListarComponent } from './categoria/listar/categoria-listar.co
     EmpresaListarComponent,
     EmpresaFormComponent,
     CategoriaFormComponent,
-    CategoriaListarComponent
+    CategoriaListarComponent,
+    ConfirmarDialog
   ],
   imports: [
     CommonModule,
     RouterModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
     LayoutModule,
+    SharedModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
@@ -61,7 +73,15 @@ import { CategoriaListarComponent } from './categoria/listar/categoria-listar.co
     MatBadgeModule,
     MatTableModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatDialogModule
+  ],
+  providers: [
+    CategoriaService
+  ],
+  entryComponents: [
+    ConfirmarDialog
   ]
 })
 export class CadastroModule { }
