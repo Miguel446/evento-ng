@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 import { ParticipanteFormComponent } from './participante/form/participante-form.component';
 import { ParticipanteListarComponent } from './participante/listar/participante-listar.component';
@@ -34,9 +35,8 @@ import { CategoriaFormComponent } from './categoria/form/categoria-form.componen
 import { CategoriaListarComponent } from './categoria/listar/categoria-listar.component';
 
 import { CategoriaService } from '../shared/services/cadastro/categoria.service';
+import { EmpresaService } from '../shared/services/cadastro/empresa.service';
 import { SharedModule } from '../shared/shared.module';
-
-import { ConfirmarDialog } from './categoria/listar/categoria-listar.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,6 @@ import { ConfirmarDialog } from './categoria/listar/categoria-listar.component';
     EmpresaFormComponent,
     CategoriaFormComponent,
     CategoriaListarComponent,
-    ConfirmarDialog
   ],
   imports: [
     CommonModule,
@@ -75,13 +74,12 @@ import { ConfirmarDialog } from './categoria/listar/categoria-listar.component';
     MatInputModule,
     MatSnackBarModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [
-    CategoriaService
-  ],
-  entryComponents: [
-    ConfirmarDialog
+    CategoriaService,
+    EmpresaService
   ]
 })
 export class CadastroModule { }

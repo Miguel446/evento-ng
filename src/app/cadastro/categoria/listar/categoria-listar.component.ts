@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { CategoriaService } from '../../../shared/services/cadastro/categoria.service';
 import { Categoria } from '../../../shared/models/categoria.model';
+
+import { ConfirmarDialog } from '../../../shared/dialogs/remover.dialog';
 
 @Component({
   selector: 'app-categoria-listar',
@@ -50,7 +51,6 @@ export class CategoriaListarComponent implements OnInit {
   }
 
   removerDialog(id: string) {
-    console.log(id);
     const dialog = this.dialog.open(ConfirmarDialog, {});
     dialog.afterClosed().subscribe(remover => {
       if (remover) {
@@ -78,22 +78,4 @@ export class CategoriaListarComponent implements OnInit {
     );
   }
 
-}
-
-@Component({
-  selector: 'confirmar-dialog',
-  template: `
-    <h1 mat-dialog-title>Deseja realmente excluir este item?</h1>
-    <div mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="false" tabindex="-1">
-        Não
-      </button>
-      <button mat-button [mat-dialog-close]="true" tabindex="2">
-        Sim
-      </button>
-    </div>
-  `,
-})
-export class ConfirmarDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 }

@@ -12,6 +12,7 @@ export class Empresa {
         public cidade: string,
         public estado: string,
         public categoria: Categoria,
+        public categoriaId: number,
         public id?: number,
     ) { }
 

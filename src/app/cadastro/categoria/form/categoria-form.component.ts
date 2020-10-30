@@ -66,7 +66,7 @@ export class CategoriaFormComponent implements OnInit {
     const categoria: Categoria = this.form.value;
 
     this.service.cadastrar(categoria).subscribe(
-      response => {
+      data => {
         this.snackbar.open('Cadastro concluído!', 'Sucesso', {
           duration: 3000,
           panelClass: ['ok'],

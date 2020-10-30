@@ -2,20 +2,20 @@
     <h1 class="mat-h1">Empresa</h1>
     <mat-card class="dashboard-card" style="width: 80%;">
         <mat-card-content class="dashboard-card-content">
-            <form>
-
+            <form [formGroup]="form" novalidate>
+                <input matInput formControlName="id" style="display: none;">
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
                             <mat-form-field class="full-width">
-                                <mat-label>Nome Completo</mat-label>
-                                <input matInput>
+                                <mat-label>Nome Fantasia</mat-label>
+                                <input matInput formControlName="nomeFantasia">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Razão Social</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="razaoSocial">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -26,13 +26,13 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CNPJ</mat-label>
-                                <input matInput >
+                                <input matInput formControlName="cnpj">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput >
+                                <input matInput formControlName="cep">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -43,13 +43,13 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Endereço</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="endereco">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Bairro</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="bairro">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -60,48 +60,24 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Cidade</mat-label>
-                                <input matInput placeholder="Ex. San Francisco">
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="full-width">
-                                <mat-label>Estado</mat-label>
-                                <input matInput placeholder="Ex. California">
+                                <input matInput formControlName="cidade">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>UF</mat-label>
-                                <input matInput #postalCode maxlength="2">
-                                <mat-hint align="end">{{postalCode.value.length}} / 2</mat-hint>
+                                <input matInput placeholder="Ex: PA" formControlName="estado">
+                                
                             </mat-form-field>
                         </td>
                     </tr>
                 </table>
-
-                <table class="full-width" cellspacing="0">
-                    <tr>
-                        <td>
-                            <mat-form-field class="full-width">
-                                <mat-label>Telefone</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field class="full-width">
-                                <mat-label>Email</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
-
                 <br>
                 <mat-divider></mat-divider>
                 <br>
                 <div style="text-align:center;">
                     <button type="button" mat-raised-button (click)="voltar()" color="basic">Voltar</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+                    <button type="button" mat-raised-button color="primary" [disabled]="form.invalid" (click)="salvar()">Salvar</button>
                 </div>
             </form>
         </mat-card-content>

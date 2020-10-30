@@ -1,8 +1,8 @@
 export class Categoria {
 
     constructor(
-        public nome: string,
         public id?: number,
+        public nome?: string,
     ) { }
 
 }
