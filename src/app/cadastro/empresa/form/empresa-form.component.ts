@@ -36,10 +36,10 @@ export class EmpresaFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.empresaId = this.route.snapshot.paramMap.get('id');
+    this.gerarForm();
+
     if (this.empresaId != null) {
       this.buscar();
-    } else {
-      this.gerarForm();
     }
 
     this.listarCategorias();
@@ -63,18 +63,17 @@ export class EmpresaFormComponent implements OnInit {
   buscar() {
     this.service.buscar(Number(this.empresaId)).subscribe(
       data => {
-        this.form = this.fb.group({
-          razaoSocial: [data.razaoSocial, [Validators.required, Validators.minLength(3)]],
-          nomeFantasia: [data.nomeFantasia, [Validators.required, Validators.minLength(3)]],
-          cnpj: [data.cnpj, [Validators.required, Validators.minLength(3)]],
-          cep: [data.cep, [Validators.required]],
-          endereco: [data.endereco, [Validators.required]],
-          bairro: [data.bairro, [Validators.required]],
-          cidade: [data.cidade, [Validators.required]],
-          estado: [data.estado, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-          categoria: [data.categoria.id, [Validators.required]],
-          id: [this.empresaId]
-        });
+        const e = data as Empresa;
+        this.form.get('nomeFantasia').setValue(e.nomeFantasia);
+        this.form.get('razaoSocial').setValue(e.razaoSocial);
+        this.form.get('cnpj').setValue(e.cnpj);
+        this.form.get('cep').setValue(e.cep);
+        this.form.get('endereco').setValue(e.endereco);
+        this.form.get('bairro').setValue(e.bairro);
+        this.form.get('cidade').setValue(e.cidade);
+        this.form.get('estado').setValue(e.estado);
+        this.form.get('categoria').setValue(e?.categoria?.id);
+
         this.categoriaId = data.categoria.id;
       },
       e => {

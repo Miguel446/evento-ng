@@ -26,11 +26,12 @@ export class CategoriaFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoriaId = this.route.snapshot.paramMap.get('id');
+    this.gerarForm();
+
     if (this.categoriaId != null) {
       this.buscar();
-    } else {
-      this.gerarForm();
     }
+
   }
 
   gerarForm() {
@@ -43,17 +44,11 @@ export class CategoriaFormComponent implements OnInit {
   buscar() {
     this.service.buscar(Number(this.categoriaId)).subscribe(
       data => {
-        this.form = this.fb.group({
-          nome: [data.nome, [Validators.required, Validators.minLength(3)]],
-          id: [data.id]
-        });
+        const c = data as Categoria;
+        this.form.get('nome').setValue(c.nome);
       },
       e => {
-        let msg: string = "Tente novamente em instantes.";
-        if (e.status != 0) {
-          msg = e.error.msg;
-        }
-        this.snackbar.open(msg, 'Erro', { duration: 3000 });
+        this.erroAlert(e);
       }
     );
   }
@@ -75,11 +70,7 @@ export class CategoriaFormComponent implements OnInit {
         this.voltar();
       },
       e => {
-        let msg: string = "Tente novamente em instantes.";
-        if (e.status != 0) {
-          msg = e.error.msg;
-        }
-        this.snackbar.open(msg, 'Erro', { duration: 3000 });
+        this.erroAlert(e);
       }
     );
 
@@ -87,6 +78,14 @@ export class CategoriaFormComponent implements OnInit {
 
   voltar() {
     this.router.navigate(['/cadastro/categoria']);
+  }
+
+  private erroAlert(e: any) {
+    let msg: string = "Tente novamente em instantes.";
+    if (e.status != 0) {
+      msg = e.error.msg;
+    }
+    this.snackbar.open(msg, 'Erro', { duration: 3000 });
   }
 
 }

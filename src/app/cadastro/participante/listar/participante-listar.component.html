@@ -19,14 +19,14 @@
                         <td mat-cell *matCellDef="let participante"> {{participante.cidade}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="empresa">
-                        <th mat-header-cell *matHeaderCellDef>Empresa</th>
-                        <td mat-cell *matCellDef="let participante"> {{participante?.empresa?.nomeFantasia}} </td>
-                    </ng-container>
-
                     <ng-container matColumnDef="categoria">
                         <th mat-header-cell *matHeaderCellDef>Categoria</th>
                         <td mat-cell *matCellDef="let participante"> {{participante?.categoria?.nome}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="empresa">
+                        <th mat-header-cell *matHeaderCellDef>Empresa</th>
+                        <td mat-cell *matCellDef="let participante"> {{participante?.empresa?.nomeFantasia}} </td>
                     </ng-container>
             
                     <ng-container matColumnDef="acao">

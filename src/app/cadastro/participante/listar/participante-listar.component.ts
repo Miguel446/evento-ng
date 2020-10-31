@@ -17,7 +17,7 @@ import { ConfirmarDialog } from '../../../shared/dialogs/remover.dialog';
 export class ParticipanteListarComponent implements OnInit {
 
   dataSource: MatTableDataSource<Participante>;
-  colunas: string[] = ['nome', 'cidade', 'empresa', 'categoria', 'acao'];
+  colunas: string[] = ['nome', 'cidade', 'categoria', 'empresa', 'acao'];
 
   constructor(
     private router: Router,
