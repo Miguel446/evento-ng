@@ -26,13 +26,13 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CNPJ</mat-label>
-                                <input matInput formControlName="cnpj">
+                                <input matInput formControlName="cnpj" [textMask]="{mask: cnpjmask, guide: false}">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput formControlName="cep">
+                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}">
                             </mat-form-field>
                         </td>
                     </tr>

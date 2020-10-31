@@ -30,6 +30,9 @@ export class ParticipanteFormComponent implements OnInit {
   categorias: Categoria[];
   empresas: Empresa[];
 
+  cpfmask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+  cepmask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+
   constructor(
     private router: Router,
     private snackbar: MatSnackBar,
@@ -57,8 +60,8 @@ export class ParticipanteFormComponent implements OnInit {
     this.form = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
       cracha: ['', [Validators.required]],
-      cpf: ['', [Validators.required, Validators.minLength(3)]],
-      cep: ['', [Validators.required]],
+      cpf: ['', [Validators.required, Validators.minLength(this.cpfmask.length)]],
+      cep: ['', [Validators.required, Validators.minLength(this.cepmask.length)]],
       endereco: ['', [Validators.required]],
       bairro: ['', [Validators.required]],
       cidade: ['', [Validators.required]],
@@ -73,6 +76,7 @@ export class ParticipanteFormComponent implements OnInit {
     this.service.buscar(Number(this.participanteId)).subscribe(
       data => {
         const p = data as Participante;
+        console.log(p.cpf);
         this.form.get('nome').setValue(p.nome);
         this.form.get('cracha').setValue(p.cracha);
         this.form.get('cpf').setValue(p.cpf);

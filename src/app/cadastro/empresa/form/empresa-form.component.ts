@@ -25,6 +25,9 @@ export class EmpresaFormComponent implements OnInit {
 
   categorias: Categoria[];
 
+  cnpjmask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+  cepmask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+
   constructor(
     private router: Router,
     private snackbar: MatSnackBar,
@@ -49,8 +52,8 @@ export class EmpresaFormComponent implements OnInit {
     this.form = this.fb.group({
       razaoSocial: ['', [Validators.required, Validators.minLength(3)]],
       nomeFantasia: ['', [Validators.required, Validators.minLength(3)]],
-      cnpj: ['', [Validators.required, Validators.minLength(3)]],
-      cep: ['', [Validators.required]],
+      cnpj: ['', [Validators.required, Validators.minLength(this.cnpjmask.length)]],
+      cep: ['', [Validators.required, Validators.minLength(this.cepmask.length)]],
       endereco: ['', [Validators.required]],
       bairro: ['', [Validators.required]],
       cidade: ['', [Validators.required]],

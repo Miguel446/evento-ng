@@ -9,7 +9,7 @@ import { DataPipe } from './pipes/data.pipe';
 @NgModule({
     declarations: [
         ConfirmarDialog,
-        DataPipe
+        DataPipe,
     ],
     imports: [
         CommonModule,
@@ -17,7 +17,7 @@ import { DataPipe } from './pipes/data.pipe';
         MatButtonModule
     ],
     exports: [
-        DataPipe
+        DataPipe,
     ],
     providers: [
     ],

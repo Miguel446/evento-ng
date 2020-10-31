@@ -15,7 +15,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CPF</mat-label>
-                                <input matInput formControlName="cpf">
+                                <input matInput formControlName="cpf" [textMask]="{mask: cpfmask, guide: false}">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -32,7 +32,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput formControlName="cep">
+                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}">
                             </mat-form-field>
                         </td>
                     </tr>

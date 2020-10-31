@@ -23,6 +23,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 
+import { TextMaskModule } from 'angular2-text-mask';
+
 import { ParticipanteFormComponent } from './participante/form/participante-form.component';
 import { ParticipanteListarComponent } from './participante/listar/participante-listar.component';
 import { FormaPagamentoFormComponent } from './forma-pagamento/form/forma-pagamento-form.component';
@@ -60,6 +62,7 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     FormsModule,
     LayoutModule,
+    TextMaskModule,
     SharedModule,
     MatToolbarModule,
     MatButtonModule,
