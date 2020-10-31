@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Categoria } from '../../../shared/models/categoria.model';
 
+import { Categoria } from '../../../shared/models/categoria.model';
 import { CategoriaService } from '../../../shared/services/cadastro/categoria.service';
 
 @Component({

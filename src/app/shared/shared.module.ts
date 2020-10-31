@@ -4,10 +4,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 import { ConfirmarDialog } from '../shared/dialogs/remover.dialog';
+import { DataPipe } from './pipes/data.pipe';
 
 @NgModule({
     declarations: [
-        ConfirmarDialog
+        ConfirmarDialog,
+        DataPipe
     ],
     imports: [
         CommonModule,
@@ -15,6 +17,7 @@ import { ConfirmarDialog } from '../shared/dialogs/remover.dialog';
         MatButtonModule
     ],
     exports: [
+        DataPipe
     ],
     providers: [
     ],

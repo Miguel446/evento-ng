@@ -2,20 +2,21 @@
     <h1 class="mat-h1">Evento</h1>
     <mat-card class="dashboard-card" style="width: 80%;">
         <mat-card-content class="dashboard-card-content">
-            <form>
+            <form [formGroup]="form" novalidate>
+                <input matInput formControlName="id" style="display: none;">
 
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Nome</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="nome">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Local</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="local">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -26,24 +27,13 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Data de Inicio</mat-label>
-                                <input matInput placeholder="Ex. dd/mm/yyyy" type="date">
+                                <input matInput placeholder="Ex. dd/mm/yyyy" type="date" formControlName="dataInicial">
                             </mat-form-field>
                         </td>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Data Fim</mat-label>
-                                <input matInput placeholder="Ex. dd/mm/yyyy" type="date">
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
-
-                <table class="full-width" cellspacing="0">
-                    <tr >
-                        <td >
-                            <mat-form-field style="width: 50%;">
-                                <mat-label>Valor</mat-label>
-                                <input matInput placeholder="Ex. San Francisco">
+                                <input matInput placeholder="Ex. dd/mm/yyyy" type="date" formControlName="dataFinal">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -53,7 +43,7 @@
                 <br>
                 <div style="text-align:center;">
                      <button type="button" mat-raised-button (click)="voltar()" color="basic">Voltar</button>&nbsp;&nbsp;&nbsp;
-                     <button type="button" mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+                     <button type="button" mat-raised-button color="primary" [disabled]="form.invalid" (click)="salvar()">Salvar</button>
                 </div>
             </form>
         </mat-card-content>

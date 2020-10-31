@@ -37,6 +37,7 @@ import { CategoriaListarComponent } from './categoria/listar/categoria-listar.co
 import { CategoriaService } from '../shared/services/cadastro/categoria.service';
 import { EmpresaService } from '../shared/services/cadastro/empresa.service';
 import { ParticipanteService } from '../shared/services/cadastro/participante.service';
+import { EventoService } from '../shared/services/cadastro/evento.service';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -81,7 +82,8 @@ import { SharedModule } from '../shared/shared.module';
   providers: [
     CategoriaService,
     EmpresaService,
-    ParticipanteService
+    ParticipanteService,
+    EventoService
   ]
 })
 export class CadastroModule { }
