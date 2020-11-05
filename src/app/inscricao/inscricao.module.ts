@@ -18,6 +18,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { InscricaoFormComponent } from './form/inscricao-form.component';
 
@@ -41,7 +42,8 @@ import { InscricaoFormComponent } from './form/inscricao-form.component';
     MatBadgeModule,
     MatTableModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatAutocompleteModule
   ]
 })
 export class InscricaoModule { }

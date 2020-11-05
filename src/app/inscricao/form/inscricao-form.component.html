@@ -9,7 +9,11 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Evento</mat-label>
-                                <input matInput>
+                                <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="evento" [matAutocomplete]="auto">
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of options | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
                             </mat-form-field>
                         </td>
                     </tr>
@@ -20,7 +24,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Empresa</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="empresa">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -31,7 +35,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Participante</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="participante">
                             </mat-form-field>
                         </td>
                     </tr>

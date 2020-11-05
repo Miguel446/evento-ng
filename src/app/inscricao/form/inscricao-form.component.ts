@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-inscricao-form',
@@ -26,5 +27,8 @@ export class InscricaoFormComponent implements OnInit {
     });
     // limpar form
   }
+
+  myControl = new FormControl();
+  options: string[] = ['SuperNorte', 'BoatShow', 'JetLounge'];
 
 }
