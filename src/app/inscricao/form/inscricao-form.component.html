@@ -12,7 +12,7 @@
                                 <mat-label>Evento</mat-label>
                                 <input type="text" matInput formControlName="evento" [matAutocomplete]="auto">
                                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
-                                <mat-option *ngFor="let evento of filteredOptions | async" [value]="evento.nome" [id]="evento.id">
+                                <mat-option *ngFor="let evento of eventosFiltrados | async" [value]="evento.nome" [id]="evento.id">
                                     {{evento.nome}}
                                 </mat-option>
                                 </mat-autocomplete>

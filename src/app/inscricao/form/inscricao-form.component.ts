@@ -35,9 +35,9 @@ export class InscricaoFormComponent implements OnInit {
   categoriaId: number;
   empresaId: number;
 
-  filteredOptions: Observable<string[]>;
+  eventosFiltrados: Observable<string[]>;
   // TODO buscar eventos no backend
-  options: any[] = [{ "id": '1', "nome": 'SuperNorte' }, { "id": '2', "nome": 'BoatShow' }, { "id": '3', "nome": 'JetLounge' }];
+  eventos: any[] = [{ "id": '1', "nome": 'SuperNorte' }, { "id": '2', "nome": 'BoatShow' }, { "id": '3', "nome": 'JetLounge' }];
 
   categorias: Categoria[];
   empresas: Empresa[];
@@ -63,7 +63,7 @@ export class InscricaoFormComponent implements OnInit {
       this.buscar();
     }
 
-    this.filteredOptions = this.form.get('evento').valueChanges
+    this.eventosFiltrados = this.form.get('evento').valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
@@ -186,7 +186,7 @@ export class InscricaoFormComponent implements OnInit {
 
   private _filter(value: any): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.nome.toLowerCase().includes(filterValue));
+    return this.eventos.filter(evento => evento.nome.toLowerCase().includes(filterValue));
   }
 
   private erroAlert(e: any) {
