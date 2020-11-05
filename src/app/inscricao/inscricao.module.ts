@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -18,9 +19,10 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { InscricaoFormComponent } from './form/inscricao-form.component';
+import { InscricaoServiceService } from '../shared/services/inscricao/inscricao-service.service';
 
 @NgModule({
   declarations: [InscricaoFormComponent],
@@ -28,6 +30,8 @@ import { InscricaoFormComponent } from './form/inscricao-form.component';
     CommonModule,
     RouterModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -44,6 +48,9 @@ import { InscricaoFormComponent } from './form/inscricao-form.component';
     MatInputModule,
     MatSnackBarModule,
     MatAutocompleteModule
+  ],
+  providers: [
+    InscricaoServiceService
   ]
 })
 export class InscricaoModule { }

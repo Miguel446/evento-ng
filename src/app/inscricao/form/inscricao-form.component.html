@@ -2,18 +2,20 @@
     <h1 class="mat-h1">Inscrição</h1>
     <mat-card class="dashboard-card" style="width: 50%;">
         <mat-card-content class="dashboard-card-content">
-            <form>
+            <form [formGroup]="form" novalidate>
+                <input matInput formControlName="id" style="display: none;">
 
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Evento</mat-label>
-                                <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="evento" [matAutocomplete]="auto">
+                                <input type="text" matInput formControlName="evento" [matAutocomplete]="auto">
                                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                                    <mat-option *ngFor="let option of options | async" [value]="option">
-                                        {{option}}
-                                    </mat-option>
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                                </mat-autocomplete>
                             </mat-form-field>
                         </td>
                     </tr>
@@ -44,9 +46,9 @@
                 <mat-divider></mat-divider>
                 <br>
                 <div style="text-align:center;">
-                    <button type="button" mat-raised-button color="basic"
-                        (click)="voltar()">Voltar</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" mat-raised-button color="primary" (click)="salvar()">Salvar</button> </div>
+                    <button type="button" mat-raised-button color="basic" (click)="voltar()">Voltar</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+                </div>
             </form>
         </mat-card-content>
     </mat-card>

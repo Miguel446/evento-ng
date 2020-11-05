@@ -65,7 +65,6 @@ export class EventoFormComponent implements OnInit {
     }
 
     const evento: Evento = this.form.value;
-    //return console.log(evento);
 
     this.service.cadastrar(evento).subscribe(
       data => {

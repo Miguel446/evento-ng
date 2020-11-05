@@ -11,7 +11,7 @@ import { Inscricao } from '../../models/inscricao';
 })
 export class InscricaoServiceService {
 
-  private readonly PATH: string = '/participantes';
+  private readonly PATH: string = '/inscricoes';
 
   constructor(private http: HttpClient) { }
 
