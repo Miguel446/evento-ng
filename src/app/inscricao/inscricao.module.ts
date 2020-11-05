@@ -27,6 +27,7 @@ import { InscricaoFormComponent } from './form/inscricao-form.component';
 import { InscricaoServiceService } from '../shared/services/inscricao/inscricao-service.service';
 import { CategoriaService } from '../shared/services/cadastro/categoria.service';
 import { EmpresaService } from '../shared/services/cadastro/empresa.service';
+import { EventoService } from '../shared/services/cadastro/evento.service';
 
 @NgModule({
   declarations: [InscricaoFormComponent],
@@ -58,7 +59,8 @@ import { EmpresaService } from '../shared/services/cadastro/empresa.service';
   providers: [
     InscricaoServiceService,
     CategoriaService,
-    EmpresaService
+    EmpresaService,
+    EventoService
   ]
 })
 export class InscricaoModule { }

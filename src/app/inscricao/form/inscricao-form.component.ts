@@ -11,11 +11,12 @@ import { Inscricao } from '../../shared/models/inscricao'
 import { Evento } from '../../shared/models/evento.model';
 import { Empresa } from '../../shared/models/empresa.model';
 import { Categoria } from '../../shared/models/categoria.model';
+import { Participante } from '../../shared/models/participante.model';
 
 import { InscricaoServiceService } from '../../shared/services/inscricao/inscricao-service.service';
 import { CategoriaService } from '../../shared/services/cadastro/categoria.service';
 import { EmpresaService } from '../../shared/services/cadastro/empresa.service';
-import { Participante } from 'src/app/shared/models/participante.model';
+import { EventoService } from '../../shared/services/cadastro/evento.service';
 
 @Component({
   selector: 'app-inscricao-form',
@@ -24,6 +25,9 @@ import { Participante } from 'src/app/shared/models/participante.model';
 })
 export class InscricaoFormComponent implements OnInit {
 
+  // TODO buscar cadastro por CPF
+  // TODO buscar endereço por cep (Criar UtilsService)
+  // TODO validar dados de inscricoes
   form: FormGroup;
 
   @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
@@ -35,9 +39,8 @@ export class InscricaoFormComponent implements OnInit {
   categoriaId: number;
   empresaId: number;
 
-  eventosFiltrados: Observable<string[]>;
-  // TODO buscar eventos no backend
-  eventos: any[] = [{ "id": '1', "nome": 'SuperNorte' }, { "id": '2', "nome": 'BoatShow' }, { "id": '3', "nome": 'JetLounge' }];
+  eventosFiltrados: Observable<Evento[]>;
+  eventos: Evento[];
 
   categorias: Categoria[];
   empresas: Empresa[];
@@ -52,7 +55,8 @@ export class InscricaoFormComponent implements OnInit {
     private route: ActivatedRoute,
     private service: InscricaoServiceService,
     private categoriaService: CategoriaService,
-    private empresaService: EmpresaService,) { }
+    private empresaService: EmpresaService,
+    private eventoService: EventoService) { }
 
   ngOnInit(): void {
     this.inscricaoId = this.route.snapshot.paramMap.get('id');
@@ -63,14 +67,12 @@ export class InscricaoFormComponent implements OnInit {
       this.buscar();
     }
 
-    this.eventosFiltrados = this.form.get('evento').valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.listarEventos();
+
 
     this.listarCategorias();
     this.listarEmpresas();
+
   }
 
   gerarForm() {
@@ -124,8 +126,6 @@ export class InscricaoFormComponent implements OnInit {
   }
 
   salvar() {
-    // TODO validar se evento foi selecionado
-    // return alert(this.form.value);
     if (this.form.invalid) {
       return;
     }
@@ -176,6 +176,23 @@ export class InscricaoFormComponent implements OnInit {
     );
   }
 
+  listarEventos() {
+    this.eventoService.listar().subscribe(
+      data => {
+        this.eventos = data as Evento[];
+
+        this.eventosFiltrados = this.form.get('evento').valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this._filter(value))
+          );
+      },
+      e => {
+        this.erroAlert(e);
+      }
+    );
+  }
+
   voltar() {
     this.router.navigate(['/']);
   }
@@ -184,7 +201,7 @@ export class InscricaoFormComponent implements OnInit {
     this.eventoId = event.option.id;
   }
 
-  private _filter(value: any): string[] {
+  private _filter(value: any): Evento[] {
     const filterValue = value.toLowerCase();
     return this.eventos.filter(evento => evento.nome.toLowerCase().includes(filterValue));
   }
