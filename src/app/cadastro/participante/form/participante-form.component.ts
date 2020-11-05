@@ -24,8 +24,8 @@ export class ParticipanteFormComponent implements OnInit {
   @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
   form: FormGroup;
   participanteId: string;
-  categoriaId: string;
-  empresaId: string;
+  categoriaId: number;
+  empresaId: number;
 
   categorias: Categoria[];
   empresas: Empresa[];
@@ -76,7 +76,6 @@ export class ParticipanteFormComponent implements OnInit {
     this.service.buscar(Number(this.participanteId)).subscribe(
       data => {
         const p = data as Participante;
-        console.log(p.cpf);
         this.form.get('nome').setValue(p.nome);
         this.form.get('cracha').setValue(p.cracha);
         this.form.get('cpf').setValue(p.cpf);
@@ -103,8 +102,8 @@ export class ParticipanteFormComponent implements OnInit {
     }
 
     let participante: Participante = this.form.value;
-    participante.empresa = new Empresa(Number(this.empresaId));
-    participante.categoria = new Categoria(Number(this.categoriaId));
+    participante.empresa = new Empresa(this.empresaId);
+    participante.categoria = new Categoria(this.categoriaId);
 
     this.service.cadastrar(participante).subscribe(
       data => {

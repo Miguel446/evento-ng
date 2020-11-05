@@ -3,11 +3,11 @@ import { Evento } from './evento.model';
 
 export class Inscricao {
 
-    constructor( 
-        public participante: Participante,
-        public evento: Evento,
+    constructor(
+        public id?: number,
+        public participante?: Participante,
+        public evento?: Evento,
         public status?: boolean,
-        public id?: number
     ) { }
 
 }

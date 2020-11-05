@@ -21,7 +21,7 @@ export class EmpresaFormComponent implements OnInit {
   @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
   form: FormGroup;
   empresaId: string;
-  categoriaId: string;
+  categoriaId: number;
 
   categorias: Categoria[];
 
@@ -91,7 +91,7 @@ export class EmpresaFormComponent implements OnInit {
     }
 
     let empresa: Empresa = this.form.value;
-    empresa.categoria = new Categoria(Number(this.categoriaId));
+    empresa.categoria = new Categoria(this.categoriaId);
     console.log(empresa);
     this.service.cadastrar(empresa).subscribe(
       data => {

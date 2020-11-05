@@ -20,9 +20,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { InscricaoFormComponent } from './form/inscricao-form.component';
 import { InscricaoServiceService } from '../shared/services/inscricao/inscricao-service.service';
+import { CategoriaService } from '../shared/services/cadastro/categoria.service';
+import { EmpresaService } from '../shared/services/cadastro/empresa.service';
 
 @NgModule({
   declarations: [InscricaoFormComponent],
@@ -47,10 +51,14 @@ import { InscricaoServiceService } from '../shared/services/inscricao/inscricao-
     MatTableModule,
     MatInputModule,
     MatSnackBarModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSelectModule,
+    TextMaskModule
   ],
   providers: [
-    InscricaoServiceService
+    InscricaoServiceService,
+    CategoriaService,
+    EmpresaService
   ]
 })
 export class InscricaoModule { }
