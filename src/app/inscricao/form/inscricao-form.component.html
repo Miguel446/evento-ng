@@ -11,7 +11,7 @@
                             <mat-form-field class="full-width">
                                 <mat-label>Evento</mat-label>
                                 <input type="text" matInput formControlName="evento" [matAutocomplete]="auto">
-                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="eventoSelecionado($event)">
                                 <mat-option *ngFor="let evento of eventosFiltrados | async" [value]="evento.nome" [id]="evento.id">
                                     {{evento.nome}}
                                 </mat-option>
@@ -52,7 +52,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}">
+                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}" (blur)="configurarEndereco();">
                             </mat-form-field>
                         </td>
                     </tr>

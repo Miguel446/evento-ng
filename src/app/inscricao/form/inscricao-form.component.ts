@@ -19,6 +19,8 @@ import { EmpresaService } from '../../shared/services/cadastro/empresa.service';
 import { EventoService } from '../../shared/services/cadastro/evento.service';
 import { ParticipanteService } from '../../shared/services/cadastro/participante.service';
 
+import { CepService } from '../../shared/services/utils/cep.service';
+
 @Component({
   selector: 'app-inscricao-form',
   templateUrl: './inscricao-form.component.html',
@@ -26,9 +28,6 @@ import { ParticipanteService } from '../../shared/services/cadastro/participante
 })
 export class InscricaoFormComponent implements OnInit {
 
-  // TODO buscar endereço por cep (Criar UtilsService)
-  // TODO validar evento ao dar tab
-  // TODO validar evento antes de salvar
   form: FormGroup;
 
   @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
@@ -58,7 +57,8 @@ export class InscricaoFormComponent implements OnInit {
     private categoriaService: CategoriaService,
     private empresaService: EmpresaService,
     private eventoService: EventoService,
-    private participanteService: ParticipanteService) { }
+    private participanteService: ParticipanteService,
+    private cepService: CepService) { }
 
   ngOnInit(): void {
     this.inscricaoId = this.route.snapshot.paramMap.get('id');
@@ -135,6 +135,8 @@ export class InscricaoFormComponent implements OnInit {
       return;
     }
 
+    this.validarEvento();
+
     const participante: Participante = this.formParticipante.value;
     participante.empresa = new Empresa(this.empresaId);
     participante.categoria = new Categoria(this.categoriaId);
@@ -198,11 +200,27 @@ export class InscricaoFormComponent implements OnInit {
     );
   }
 
+  configurarEndereco() {
+    const cep = this.formParticipante.get('cep').value;
+    this.cepService.buscar(cep).subscribe(
+      data => {
+        this.formParticipante.get('cep').setValue(data.cep);
+        this.formParticipante.get('endereco').setValue(data.logradouro);
+        this.formParticipante.get('bairro').setValue(data.bairro);
+        this.formParticipante.get('cidade').setValue(data.localidade);
+        this.formParticipante.get('estado').setValue(data.uf);
+      },
+      e => {
+        this.snackbar.open('CEP não encontrado', 'Erro', { duration: 3000 });
+      }
+    );
+  }
+
   voltar() {
     this.router.navigate(['/']);
   }
 
-  optionSelected(event: any) {
+  eventoSelecionado(event: any) {
     this.eventoId = event.option.id;
   }
 
@@ -226,6 +244,14 @@ export class InscricaoFormComponent implements OnInit {
 
     this.categoriaId = p?.categoria.id;
     this.empresaId = p?.empresa.id;
+  }
+
+  private validarEvento() {
+    const nomeEvento = this.form.get('evento').value;
+    let array: Evento[] = this.eventos.filter(e => e.nome == nomeEvento && e.id == this.eventoId);
+    if (array.length != 1) {
+      return this.snackbar.open('Por favor, selecione o evento desejado na lista sugerida de eventos', 'Erro', { duration: 3000 });
+    }
   }
 
   private erroAlert(e: any) {

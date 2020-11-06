@@ -30,6 +30,8 @@ import { EmpresaService } from '../shared/services/cadastro/empresa.service';
 import { EventoService } from '../shared/services/cadastro/evento.service';
 import { ParticipanteService } from '../shared/services/cadastro/participante.service';
 
+import { CepService } from '../shared/services/utils/cep.service';
+
 @NgModule({
   declarations: [InscricaoFormComponent],
   imports: [
@@ -62,7 +64,8 @@ import { ParticipanteService } from '../shared/services/cadastro/participante.se
     CategoriaService,
     EmpresaService,
     EventoService,
-    ParticipanteService
+    ParticipanteService,
+    CepService
   ]
 })
 export class InscricaoModule { }
