@@ -29,7 +29,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CPF</mat-label>
-                                <input matInput formControlName="cpf" [textMask]="{mask: cpfmask, guide: false}">
+                                <input matInput formControlName="cpf" [textMask]="{mask: cpfmask, guide: false}" (blur)="buscarParticipante()">
                             </mat-form-field>
                         </td>
                         <td>

@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment as env } from '../../../../environments/environment';
 
-import { Inscricao } from '../../models/inscricao';
+import { Inscricao } from '../../models/inscricao.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InscricaoServiceService {
+export class InscricaoService {
 
   private readonly PATH: string = '/inscricoes';
 

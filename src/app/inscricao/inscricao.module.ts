@@ -24,10 +24,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { InscricaoFormComponent } from './form/inscricao-form.component';
-import { InscricaoServiceService } from '../shared/services/inscricao/inscricao-service.service';
+import { InscricaoService } from '../shared/services/inscricao/inscricao.service';
 import { CategoriaService } from '../shared/services/cadastro/categoria.service';
 import { EmpresaService } from '../shared/services/cadastro/empresa.service';
 import { EventoService } from '../shared/services/cadastro/evento.service';
+import { ParticipanteService } from '../shared/services/cadastro/participante.service';
 
 @NgModule({
   declarations: [InscricaoFormComponent],
@@ -57,10 +58,11 @@ import { EventoService } from '../shared/services/cadastro/evento.service';
     TextMaskModule
   ],
   providers: [
-    InscricaoServiceService,
+    InscricaoService,
     CategoriaService,
     EmpresaService,
-    EventoService
+    EventoService,
+    ParticipanteService
   ]
 })
 export class InscricaoModule { }

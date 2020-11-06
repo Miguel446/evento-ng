@@ -24,6 +24,10 @@ export class ParticipanteService {
     return this.http.get(env.baseUrl + this.PATH + '/' + id);
   }
 
+  buscarPorCpf(cpf: string): Observable<any> {
+    return this.http.get(env.baseUrl + this.PATH + '/cpf/' + cpf);
+  }
+
   listar(): Observable<any> {
     return this.http.get(env.baseUrl + this.PATH);
   }

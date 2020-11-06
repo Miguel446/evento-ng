@@ -7,16 +7,17 @@ import { MatSelect } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { Inscricao } from '../../shared/models/inscricao'
+import { Inscricao } from '../../shared/models/inscricao.model'
 import { Evento } from '../../shared/models/evento.model';
 import { Empresa } from '../../shared/models/empresa.model';
 import { Categoria } from '../../shared/models/categoria.model';
 import { Participante } from '../../shared/models/participante.model';
 
-import { InscricaoServiceService } from '../../shared/services/inscricao/inscricao-service.service';
+import { InscricaoService } from '../../shared/services/inscricao/inscricao.service';
 import { CategoriaService } from '../../shared/services/cadastro/categoria.service';
 import { EmpresaService } from '../../shared/services/cadastro/empresa.service';
 import { EventoService } from '../../shared/services/cadastro/evento.service';
+import { ParticipanteService } from '../../shared/services/cadastro/participante.service';
 
 @Component({
   selector: 'app-inscricao-form',
@@ -25,9 +26,9 @@ import { EventoService } from '../../shared/services/cadastro/evento.service';
 })
 export class InscricaoFormComponent implements OnInit {
 
-  // TODO buscar cadastro por CPF
   // TODO buscar endereço por cep (Criar UtilsService)
-  // TODO validar dados de inscricoes
+  // TODO validar evento ao dar tab
+  // TODO validar evento antes de salvar
   form: FormGroup;
 
   @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
@@ -53,10 +54,11 @@ export class InscricaoFormComponent implements OnInit {
     private snackbar: MatSnackBar,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private service: InscricaoServiceService,
+    private service: InscricaoService,
     private categoriaService: CategoriaService,
     private empresaService: EmpresaService,
-    private eventoService: EventoService) { }
+    private eventoService: EventoService,
+    private participanteService: ParticipanteService) { }
 
   ngOnInit(): void {
     this.inscricaoId = this.route.snapshot.paramMap.get('id');
@@ -64,15 +66,12 @@ export class InscricaoFormComponent implements OnInit {
     this.gerarFormParticipante();
 
     if (this.inscricaoId != null) {
-      this.buscar();
+      this.buscarInscricao();
     }
 
     this.listarEventos();
-
-
     this.listarCategorias();
     this.listarEmpresas();
-
   }
 
   gerarForm() {
@@ -98,7 +97,7 @@ export class InscricaoFormComponent implements OnInit {
     });
   }
 
-  buscar() {
+  buscarInscricao() {
     this.service.buscar(Number(this.inscricaoId)).subscribe(
       data => {
         const i = data as Inscricao;
@@ -106,18 +105,24 @@ export class InscricaoFormComponent implements OnInit {
         this.form.get('evento').setValue(i?.evento?.nome);
         this.eventoId = i?.evento?.id;
 
-        this.formParticipante.get('nome').setValue(i.participante.nome);
-        this.formParticipante.get('cracha').setValue(i.participante.cracha);
-        this.formParticipante.get('cpf').setValue(i.participante.cpf);
-        this.formParticipante.get('cep').setValue(i.participante.cep);
-        this.formParticipante.get('endereco').setValue(i.participante.endereco);
-        this.formParticipante.get('bairro').setValue(i.participante.bairro);
-        this.formParticipante.get('cidade').setValue(i.participante.cidade);
-        this.formParticipante.get('estado').setValue(i.participante.estado);
-        this.formParticipante.get('id').setValue(i?.participante?.id);
+        this.configurarParticipante(i.participante);
+      },
+      e => {
+        this.erroAlert(e);
+      }
+    );
+  }
 
-        this.categoriaId = i?.participante?.categoria?.id;
-        this.empresaId = i?.participante?.empresa?.id;
+  buscarParticipante() {
+    const cpf = this.formParticipante.get('cpf').value;
+    if (cpf.length < this.cpfmask.length) {
+      return false;
+    }
+
+    this.participanteService.buscarPorCpf(cpf).subscribe(
+      data => {
+        const p = data as Participante;
+        this.configurarParticipante(p);
       },
       e => {
         this.erroAlert(e);
@@ -204,6 +209,23 @@ export class InscricaoFormComponent implements OnInit {
   private _filter(value: any): Evento[] {
     const filterValue = value.toLowerCase();
     return this.eventos.filter(evento => evento.nome.toLowerCase().includes(filterValue));
+  }
+
+  private configurarParticipante(p: Participante) {
+    this.formParticipante.get('nome').setValue(p.nome);
+    this.formParticipante.get('cracha').setValue(p.cracha);
+    this.formParticipante.get('cpf').setValue(p.cpf);
+    this.formParticipante.get('cep').setValue(p.cep);
+    this.formParticipante.get('endereco').setValue(p.endereco);
+    this.formParticipante.get('bairro').setValue(p.bairro);
+    this.formParticipante.get('cidade').setValue(p.cidade);
+    this.formParticipante.get('estado').setValue(p.estado);
+    this.formParticipante.get('categoria').setValue(p?.categoria.id);
+    this.formParticipante.get('empresa').setValue(p?.empresa.id);
+    this.formParticipante.get('id').setValue(p.id);
+
+    this.categoriaId = p?.categoria.id;
+    this.empresaId = p?.empresa.id;
   }
 
   private erroAlert(e: any) {

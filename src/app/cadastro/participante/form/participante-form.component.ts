@@ -13,6 +13,7 @@ import { ParticipanteService } from '../../../shared/services/cadastro/participa
 import { CategoriaService } from '../../../shared/services/cadastro/categoria.service';
 import { EmpresaService } from '../../../shared/services/cadastro/empresa.service';
 
+import { CepService } from '../../../shared/services/utils/cep.service';
 
 @Component({
   selector: 'app-participante-form',
@@ -41,7 +42,7 @@ export class ParticipanteFormComponent implements OnInit {
     private empresaService: EmpresaService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-
+    private cepService: CepService
   ) { }
 
   ngOnInit(): void {
@@ -138,6 +139,22 @@ export class ParticipanteFormComponent implements OnInit {
       },
       e => {
         this.erroAlert(e);
+      }
+    );
+  }
+
+  configurarEndereco() {
+    const cep = this.form.get('cep').value;
+    this.cepService.buscar(cep).subscribe(
+      data => {
+        this.form.get('cep').setValue(data.cep);
+        this.form.get('endereco').setValue(data.logradouro);
+        this.form.get('bairro').setValue(data.bairro);
+        this.form.get('cidade').setValue(data.localidade);
+        this.form.get('estado').setValue(data.uf);
+      },
+      e => {
+        this.snackbar.open('CEP não encontrado', 'Erro', { duration: 3000 });
       }
     );
   }

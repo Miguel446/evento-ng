@@ -32,7 +32,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}">
+                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}" (blur)="configurarEndereco();">
                             </mat-form-field>
                         </td>
                     </tr>

@@ -41,6 +41,7 @@ import { EmpresaService } from '../shared/services/cadastro/empresa.service';
 import { ParticipanteService } from '../shared/services/cadastro/participante.service';
 import { EventoService } from '../shared/services/cadastro/evento.service';
 import { SharedModule } from '../shared/shared.module';
+import { CepService } from '../shared/services/utils/cep.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { SharedModule } from '../shared/shared.module';
     CategoriaService,
     EmpresaService,
     ParticipanteService,
-    EventoService
+    EventoService,
+    CepService
   ]
 })
 export class CadastroModule { }
