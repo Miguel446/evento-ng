@@ -113,23 +113,6 @@ export class InscricaoFormComponent implements OnInit {
     );
   }
 
-  buscarParticipante() {
-    const cpf = this.formParticipante.get('cpf').value;
-    if (cpf.length < this.cpfmask.length) {
-      return false;
-    }
-
-    this.participanteService.buscarPorCpf(cpf).subscribe(
-      data => {
-        const p = data as Participante;
-        this.configurarParticipante(p);
-      },
-      e => {
-        this.erroAlert(e);
-      }
-    );
-  }
-
   salvar() {
     if (this.form.invalid) {
       return;
@@ -204,6 +187,9 @@ export class InscricaoFormComponent implements OnInit {
     const cep = this.formParticipante.get('cep').value;
     this.cepService.buscar(cep).subscribe(
       data => {
+        if (data.erro) {
+          return this.limparEndereco('CEP não encontrado');;
+        }
         this.formParticipante.get('cep').setValue(data.cep);
         this.formParticipante.get('endereco').setValue(data.logradouro);
         this.formParticipante.get('bairro').setValue(data.bairro);
@@ -211,13 +197,17 @@ export class InscricaoFormComponent implements OnInit {
         this.formParticipante.get('estado').setValue(data.uf);
       },
       e => {
-        this.snackbar.open('CEP não encontrado', 'Erro', { duration: 3000 });
+        this.limparEndereco('Erro ao buscar CEP');
       }
     );
   }
 
-  voltar() {
-    this.router.navigate(['/']);
+  limparEndereco(msg: string) {
+    this.formParticipante.get('endereco').setValue('');
+    this.formParticipante.get('bairro').setValue('');
+    this.formParticipante.get('cidade').setValue('');
+    this.formParticipante.get('estado').setValue('');
+    this.snackbar.open(msg, 'Erro', { duration: 3000 });
   }
 
   eventoSelecionado(event: any) {
@@ -227,6 +217,24 @@ export class InscricaoFormComponent implements OnInit {
   private _filter(value: any): Evento[] {
     const filterValue = value.toLowerCase();
     return this.eventos.filter(evento => evento.nome.toLowerCase().includes(filterValue));
+  }
+
+  buscarParticipante() {
+    const cpf = this.formParticipante.get('cpf').value;
+    if (cpf.length < this.cpfmask.length) {
+      return false;
+    }
+
+    this.participanteService.buscarPorCpf(cpf).subscribe(
+      data => {
+        const p = data as Participante;
+        this.configurarParticipante(p);
+      },
+      e => {
+        this.erroAlert(e);
+        this.limparParticipante();
+      }
+    );
   }
 
   private configurarParticipante(p: Participante) {
@@ -244,6 +252,26 @@ export class InscricaoFormComponent implements OnInit {
 
     this.categoriaId = p?.categoria.id;
     this.empresaId = p?.empresa.id;
+  }
+
+  private limparParticipante() {
+    this.formParticipante.get('nome').setValue('');
+    this.formParticipante.get('cracha').setValue('');
+    this.formParticipante.get('cep').setValue('');
+    this.formParticipante.get('endereco').setValue('');
+    this.formParticipante.get('bairro').setValue('');
+    this.formParticipante.get('cidade').setValue('');
+    this.formParticipante.get('estado').setValue('');
+    this.formParticipante.get('categoria').setValue('');
+    this.formParticipante.get('empresa').setValue('');
+    this.formParticipante.get('id').setValue('');
+
+    this.categoriaId = null;
+    this.empresaId = null;
+  }
+
+  voltar() {
+    this.router.navigate(['/']);
   }
 
   private validarEvento() {

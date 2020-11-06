@@ -147,6 +147,9 @@ export class ParticipanteFormComponent implements OnInit {
     const cep = this.form.get('cep').value;
     this.cepService.buscar(cep).subscribe(
       data => {
+        if (data.erro) {
+          return this.limparEndereco('CEP não encontrado');;
+        }
         this.form.get('cep').setValue(data.cep);
         this.form.get('endereco').setValue(data.logradouro);
         this.form.get('bairro').setValue(data.bairro);
@@ -154,9 +157,17 @@ export class ParticipanteFormComponent implements OnInit {
         this.form.get('estado').setValue(data.uf);
       },
       e => {
-        this.snackbar.open('CEP não encontrado', 'Erro', { duration: 3000 });
+        this.limparEndereco('Erro ao buscar CEP');
       }
     );
+  }
+
+  limparEndereco(msg: string) {
+    this.form.get('endereco').setValue('');
+    this.form.get('bairro').setValue('');
+    this.form.get('cidade').setValue('');
+    this.form.get('estado').setValue('');
+    this.snackbar.open(msg, 'Erro', { duration: 3000 });
   }
 
   voltar() {
