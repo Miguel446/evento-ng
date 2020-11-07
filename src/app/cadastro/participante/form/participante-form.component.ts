@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelect } from '@angular/material/select';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { Participante } from '../../../shared/models/participante.model';
 import { Categoria } from '../../../shared/models/categoria.model';
@@ -29,6 +31,8 @@ export class ParticipanteFormComponent implements OnInit {
   empresaId: number;
 
   categorias: Categoria[];
+
+  empresasFiltradas: Observable<Empresa[]>;
   empresas: Empresa[];
 
   cpfmask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
@@ -86,7 +90,7 @@ export class ParticipanteFormComponent implements OnInit {
         this.form.get('cidade').setValue(p.cidade);
         this.form.get('estado').setValue(p.estado);
         this.form.get('categoria').setValue(p?.categoria?.id);
-        this.form.get('empresa').setValue(p?.empresa?.id);
+        this.form.get('empresa').setValue(p?.empresa?.nomeFantasia);
 
         this.empresaId = data?.empresa?.id;
         this.categoriaId = data?.categoria?.id;
@@ -98,8 +102,10 @@ export class ParticipanteFormComponent implements OnInit {
   }
 
   salvar() {
-    if (this.form.invalid) {
-      return;
+    const nomeEmpresa = this.form.get('empresa').value;
+    let array: Empresa[] = this.empresas.filter(e => e.nomeFantasia == nomeEmpresa && e.id == this.empresaId);
+    if (array.length != 1) {
+      return this.snackbar.open('Por favor, selecione a empresa desejada na lista sugerida de empresas', 'Erro', { duration: 3000 });
     }
 
     let participante: Participante = this.form.value;
@@ -136,11 +142,26 @@ export class ParticipanteFormComponent implements OnInit {
     this.empresaService.listar().subscribe(
       data => {
         this.empresas = data as Empresa[];
+
+        this.empresasFiltradas = this.form.get('empresa').valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this._filterEmpresa(value))
+          );
       },
       e => {
         this.erroAlert(e);
       }
     );
+  }
+
+  private _filterEmpresa(value: any): Empresa[] {
+    const filterValue = value.toLowerCase();
+    return this.empresas.filter(empresa => empresa.nomeFantasia.toLowerCase().includes(filterValue));
+  }
+
+  empresaSelecionada(event: any) {
+    this.empresaId = event.option.id;
   }
 
   configurarEndereco() {

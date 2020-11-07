@@ -22,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { TextMaskModule } from 'angular2-text-mask';
 
@@ -81,7 +82,8 @@ import { CepService } from '../shared/services/utils/cep.service';
     MatSnackBarModule,
     MatTooltipModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [
     CategoriaService,

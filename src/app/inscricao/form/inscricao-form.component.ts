@@ -42,8 +42,10 @@ export class InscricaoFormComponent implements OnInit {
   eventosFiltrados: Observable<Evento[]>;
   eventos: Evento[];
 
-  categorias: Categoria[];
+  empresasFiltradas: Observable<Empresa[]>;
   empresas: Empresa[];
+
+  categorias: Categoria[];
 
   cpfmask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   cepmask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
@@ -114,11 +116,17 @@ export class InscricaoFormComponent implements OnInit {
   }
 
   salvar() {
-    if (this.form.invalid) {
-      return;
+    const nomeEvento = this.form.get('evento').value;
+    let arrayEvento: Evento[] = this.eventos.filter(e => e.nome == nomeEvento && e.id == this.eventoId);
+    if (arrayEvento.length != 1) {
+      return this.snackbar.open('Por favor, selecione o evento desejado na lista sugerida de eventos', 'Erro', { duration: 3000 });
     }
 
-    this.validarEvento();
+    const nomeEmpresa = this.formParticipante.get('empresa').value;
+    let arrayEmpresa: Empresa[] = this.empresas.filter(e => e.nomeFantasia == nomeEmpresa && e.id == this.empresaId);
+    if (arrayEmpresa.length != 1) {
+      return this.snackbar.open('Por favor, selecione a empresa desejada na lista sugerida de empresas', 'Erro', { duration: 3000 });
+    }
 
     const participante: Participante = this.formParticipante.value;
     participante.empresa = new Empresa(this.empresaId);
@@ -159,6 +167,11 @@ export class InscricaoFormComponent implements OnInit {
     this.empresaService.listar().subscribe(
       data => {
         this.empresas = data as Empresa[];
+        this.empresasFiltradas = this.formParticipante.get('empresa').valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this._filterEmpresa(value))
+          );
       },
       e => {
         this.erroAlert(e);
@@ -166,21 +179,60 @@ export class InscricaoFormComponent implements OnInit {
     );
   }
 
+
   listarEventos() {
     this.eventoService.listar().subscribe(
       data => {
         this.eventos = data as Evento[];
-
         this.eventosFiltrados = this.form.get('evento').valueChanges
           .pipe(
             startWith(''),
-            map(value => this._filter(value))
+            map(value => this._filterEvento(value))
           );
       },
       e => {
         this.erroAlert(e);
       }
     );
+  }
+
+  buscarParticipante() {
+    const cpf = this.formParticipante.get('cpf').value;
+    if (cpf == '000.000.000-00') {
+      return false;
+    }
+
+    this.participanteService.buscarPorCpf(cpf).subscribe(
+      data => {
+        const p = data as Participante;
+        this.configurarParticipante(p);
+      },
+      e => {
+        this.erroAlert(e);
+
+        this.formParticipante.reset();
+        this.formParticipante.get('cpf').setValue(cpf);
+        this.categoriaId = null;
+        this.empresaId = null;
+      }
+    );
+  }
+
+  private configurarParticipante(p: Participante) {
+    this.formParticipante.get('cpf').setValue(p.cpf);
+    this.formParticipante.get('nome').setValue(p.nome);
+    this.formParticipante.get('cracha').setValue(p.cracha);
+    this.formParticipante.get('cep').setValue(p.cep);
+    this.formParticipante.get('endereco').setValue(p.endereco);
+    this.formParticipante.get('bairro').setValue(p.bairro);
+    this.formParticipante.get('cidade').setValue(p.cidade);
+    this.formParticipante.get('estado').setValue(p.estado);
+    this.formParticipante.get('categoria').setValue(p?.categoria.id);
+    this.formParticipante.get('empresa').setValue(p?.empresa.nomeFantasia);
+    this.formParticipante.get('id').setValue(p.id);
+
+    this.categoriaId = p?.categoria.id;
+    this.empresaId = p?.empresa.id;
   }
 
   configurarEndereco() {
@@ -214,72 +266,22 @@ export class InscricaoFormComponent implements OnInit {
     this.eventoId = event.option.id;
   }
 
-  private _filter(value: any): Evento[] {
-    const filterValue = value.toLowerCase();
-    return this.eventos.filter(evento => evento.nome.toLowerCase().includes(filterValue));
-  }
-
-  buscarParticipante() {
-    const cpf = this.formParticipante.get('cpf').value;
-    if (cpf.length < this.cpfmask.length) {
-      return false;
-    }
-
-    this.participanteService.buscarPorCpf(cpf).subscribe(
-      data => {
-        const p = data as Participante;
-        this.configurarParticipante(p);
-      },
-      e => {
-        this.erroAlert(e);
-        this.limparParticipante();
-      }
-    );
-  }
-
-  private configurarParticipante(p: Participante) {
-    this.formParticipante.get('nome').setValue(p.nome);
-    this.formParticipante.get('cracha').setValue(p.cracha);
-    this.formParticipante.get('cpf').setValue(p.cpf);
-    this.formParticipante.get('cep').setValue(p.cep);
-    this.formParticipante.get('endereco').setValue(p.endereco);
-    this.formParticipante.get('bairro').setValue(p.bairro);
-    this.formParticipante.get('cidade').setValue(p.cidade);
-    this.formParticipante.get('estado').setValue(p.estado);
-    this.formParticipante.get('categoria').setValue(p?.categoria.id);
-    this.formParticipante.get('empresa').setValue(p?.empresa.id);
-    this.formParticipante.get('id').setValue(p.id);
-
-    this.categoriaId = p?.categoria.id;
-    this.empresaId = p?.empresa.id;
-  }
-
-  private limparParticipante() {
-    this.formParticipante.get('nome').setValue('');
-    this.formParticipante.get('cracha').setValue('');
-    this.formParticipante.get('cep').setValue('');
-    this.formParticipante.get('endereco').setValue('');
-    this.formParticipante.get('bairro').setValue('');
-    this.formParticipante.get('cidade').setValue('');
-    this.formParticipante.get('estado').setValue('');
-    this.formParticipante.get('categoria').setValue('');
-    this.formParticipante.get('empresa').setValue('');
-    this.formParticipante.get('id').setValue('');
-
-    this.categoriaId = null;
-    this.empresaId = null;
+  empresaSelecionada(event: any) {
+    this.empresaId = event.option.id;
   }
 
   voltar() {
     this.router.navigate(['/']);
   }
 
-  private validarEvento() {
-    const nomeEvento = this.form.get('evento').value;
-    let array: Evento[] = this.eventos.filter(e => e.nome == nomeEvento && e.id == this.eventoId);
-    if (array.length != 1) {
-      return this.snackbar.open('Por favor, selecione o evento desejado na lista sugerida de eventos', 'Erro', { duration: 3000 });
-    }
+  private _filterEvento(value: any): Evento[] {
+    const filterValue = value.toLowerCase();
+    return this.eventos.filter(evento => evento.nome.toLowerCase().includes(filterValue));
+  }
+
+  private _filterEmpresa(value: any): Empresa[] {
+    const filterValue = value.toLowerCase();
+    return this.empresas.filter(empresa => empresa.nomeFantasia.toLowerCase().includes(filterValue));
   }
 
   private erroAlert(e: any) {
