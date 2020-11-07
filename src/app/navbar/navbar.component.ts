@@ -34,7 +34,7 @@ export class NavbarComponent {
   }
 
   inscricao() {
-    this.router.navigate(['/inscricao/form']);
+    this.router.navigate(['/inscricao']);
   }
 
   categoria() {

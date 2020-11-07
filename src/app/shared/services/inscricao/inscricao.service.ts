@@ -23,6 +23,12 @@ export class InscricaoService {
     return this.http.get(env.baseUrl + this.PATH + '/' + id);
   }
 
+  consultar(eventoId: any, cpf: string, nome: string) {
+    const params = 'eventoId=' + eventoId + '&cpf=' + cpf + '&nome=' + nome;
+    console.log(params);
+    return this.http.get(env.baseUrl + this.PATH + '/consulta' + '?' + params);
+  }
+
   listar(): Observable<any> {
     return this.http.get(env.baseUrl + this.PATH);
   }

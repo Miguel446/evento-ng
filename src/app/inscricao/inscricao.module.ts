@@ -31,9 +31,13 @@ import { EventoService } from '../shared/services/cadastro/evento.service';
 import { ParticipanteService } from '../shared/services/cadastro/participante.service';
 
 import { CepService } from '../shared/services/utils/cep.service';
+import { InscricaoListarComponent } from './listar/inscricao-listar.component';
 
 @NgModule({
-  declarations: [InscricaoFormComponent],
+  declarations: [
+    InscricaoFormComponent,
+    InscricaoListarComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,

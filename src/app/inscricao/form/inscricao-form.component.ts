@@ -136,7 +136,6 @@ export class InscricaoFormComponent implements OnInit {
     inscricao.participante = participante;
     inscricao.evento = new Evento(this.eventoId);
 
-    return console.log(inscricao);
     this.service.cadastrar(inscricao).subscribe(
       data => {
         this.snackbar.open('Cadastro concluído!', 'Sucesso', {
@@ -271,7 +270,7 @@ export class InscricaoFormComponent implements OnInit {
   }
 
   voltar() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/inscricao']);
   }
 
   private _filterEvento(value: any): Evento[] {
