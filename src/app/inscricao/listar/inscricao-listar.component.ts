@@ -26,6 +26,8 @@ export class InscricaoListarComponent implements OnInit {
   eventoId: string = '';
   cpf: string = '';
   nome: string = '';
+  pagina: number = 0;
+  totalLinhas: number = 10;
 
   cpfmask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
 
@@ -46,14 +48,13 @@ export class InscricaoListarComponent implements OnInit {
   }
 
   consultar() {
-    if (!this.eventoId) {
-      this.eventoId = '';
+    if (!this.eventoId || this.eventoId == '') {
+      return this.snackbar.open("Por favor, selecione um evento", "Erro", { duration: 3000 });
     }
 
-    this.service.consultar(this.eventoId, this.cpf, this.nome).subscribe(
+    this.service.consultar(this.eventoId, this.cpf, this.nome, this.pagina, this.totalLinhas).subscribe(
       data => {
-        const inscricoes = data as Inscricao[];
-        console.log(inscricoes);
+        const inscricoes = data.content as Inscricao[];
         this.dataSource = new MatTableDataSource<Inscricao>(inscricoes);
       },
       e => {
