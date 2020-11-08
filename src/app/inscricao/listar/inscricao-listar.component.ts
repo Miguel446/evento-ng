@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 
 import { InscricaoService } from '../../shared/services/inscricao/inscricao.service';
 import { Inscricao } from '../../shared/models/inscricao.model';
@@ -26,8 +27,10 @@ export class InscricaoListarComponent implements OnInit {
   eventoId: string = '';
   cpf: string = '';
   nome: string = '';
-  pagina: number = 0;
-  totalLinhas: number = 10;
+  pagina: number;
+  totalLinhas: number;
+
+  totalInscricoes: number;
 
   cpfmask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/];
 
@@ -40,6 +43,8 @@ export class InscricaoListarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.pagina = 0;
+    this.totalLinhas = 30;
     this.listarEventos();
   }
 
@@ -51,16 +56,23 @@ export class InscricaoListarComponent implements OnInit {
     if (!this.eventoId || this.eventoId == '') {
       return this.snackbar.open("Por favor, selecione um evento", "Erro", { duration: 3000 });
     }
-
+    console.log(this.totalLinhas);
     this.service.consultar(this.eventoId, this.cpf, this.nome, this.pagina, this.totalLinhas).subscribe(
       data => {
         const inscricoes = data.content as Inscricao[];
+        this.totalInscricoes = data.totalElements;
         this.dataSource = new MatTableDataSource<Inscricao>(inscricoes);
       },
       e => {
         this.errorAlert(e);
       }
     );
+  }
+
+  paginar(pageEvent: PageEvent) {
+    this.pagina = pageEvent.pageIndex;
+    this.totalLinhas = pageEvent.pageSize;
+    this.consultar();
   }
 
   listarEventos() {

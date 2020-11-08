@@ -70,6 +70,10 @@
                 <tr mat-header-row *matHeaderRowDef="colunas"></tr>
                 <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
             </table>
+
+            <mat-paginator [length]="totalInscricoes" [(pageSize)]="totalLinhas" (page)="paginar($event)" [pageSizeOptions]="[20, 30, 40, 50]">
+            </mat-paginator>
+            
         </mat-card-content>
     </mat-card>
 </div>

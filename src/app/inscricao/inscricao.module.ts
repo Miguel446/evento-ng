@@ -21,6 +21,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { InscricaoFormComponent } from './form/inscricao-form.component';
@@ -32,6 +34,8 @@ import { ParticipanteService } from '../shared/services/cadastro/participante.se
 
 import { CepService } from '../shared/services/utils/cep.service';
 import { InscricaoListarComponent } from './listar/inscricao-listar.component';
+
+import { PtBrMatPaginatorIntl } from '../shared/pt-br-mat-paginator-intl';
 
 @NgModule({
   declarations: [
@@ -61,6 +65,7 @@ import { InscricaoListarComponent } from './listar/inscricao-listar.component';
     MatSnackBarModule,
     MatAutocompleteModule,
     MatSelectModule,
+    MatPaginatorModule,
     TextMaskModule
   ],
   providers: [
@@ -69,7 +74,9 @@ import { InscricaoListarComponent } from './listar/inscricao-listar.component';
     EmpresaService,
     EventoService,
     ParticipanteService,
-    CepService
+    CepService,
+    MatPaginatorIntl,
+    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl },
   ]
 })
 export class InscricaoModule { }

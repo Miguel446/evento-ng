@@ -4,6 +4,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 import { ConfirmarDialog } from '../shared/dialogs/remover.dialog';
+import { PtBrMatPaginatorIntl } from './pt-br-mat-paginator-intl';
 import { DataPipe } from './pipes/data.pipe';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { DataPipe } from './pipes/data.pipe';
         DataPipe,
     ],
     providers: [
+        PtBrMatPaginatorIntl
     ],
     entryComponents: [
         ConfirmarDialog
