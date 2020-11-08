@@ -24,7 +24,7 @@ export class InscricaoListarComponent implements OnInit {
 
   eventos: Evento[];
 
-  eventoId: string = '';
+  eventoSelecionado: Evento;
   cpf: string = '';
   nome: string = '';
   pagina: number;
@@ -53,11 +53,11 @@ export class InscricaoListarComponent implements OnInit {
   }
 
   consultar() {
-    if (!this.eventoId || this.eventoId == '') {
+    if (!this.eventoSelecionado || this.eventoSelecionado == '') {
       return this.snackbar.open("Por favor, selecione um evento", "Erro", { duration: 3000 });
     }
     console.log(this.totalLinhas);
-    this.service.consultar(this.eventoId, this.cpf, this.nome, this.pagina, this.totalLinhas).subscribe(
+    this.service.consultar(this.eventoSelecionado.id, this.cpf, this.nome, this.pagina, this.totalLinhas).subscribe(
       data => {
         const inscricoes = data.content as Inscricao[];
         this.totalInscricoes = data.totalElements;
@@ -79,6 +79,11 @@ export class InscricaoListarComponent implements OnInit {
     this.eventoService.listar().subscribe(
       data => {
         this.eventos = data as Evento[];
+        if (this.eventos.length > 0) {
+          this.eventoSelecionado = this.eventos[0];
+        }
+
+        this.consultar();
       },
       e => {
         this.errorAlert(e);

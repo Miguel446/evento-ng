@@ -11,9 +11,9 @@
                 <tr>
                     <td>
                         <mat-form-field class="full-width">
-                            <mat-select placeholder="Evento" [(value)]="eventoId">
+                            <mat-select placeholder="Evento" [(value)]="eventoSelecionado" (selectionChange)="consultar()">
                                 <mat-option [value]="" >Selecione...</mat-option>
-                                <mat-option *ngFor="let evento of eventos" [value]="evento.id">
+                                <mat-option *ngFor="let evento of eventos" [value]="evento">
                                     {{ evento.nome }}
                                 </mat-option>
                             </mat-select>
