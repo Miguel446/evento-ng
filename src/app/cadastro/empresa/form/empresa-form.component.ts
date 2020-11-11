@@ -32,7 +32,7 @@ export class EmpresaFormComponent implements OnInit {
   cepmask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
   empresa: Empresa;
-  temRota: boolean = true;
+  isDialog: boolean = false;
   width: string;
 
   constructor(
@@ -51,9 +51,9 @@ export class EmpresaFormComponent implements OnInit {
     this.gerarForm();
 
     if (!this.route.snapshot.routeConfig) {
-      this.temRota = false;
+      this.isDialog = true;
     }
-    this.width = this.temRota ? '80' : '100';
+    this.width = this.isDialog ? '100' : '80';
 
     if (this.empresaId != null) {
       this.buscar();
@@ -162,7 +162,7 @@ export class EmpresaFormComponent implements OnInit {
   }
 
   voltar() {
-    if (!this.temRota) {
+    if (this.isDialog) {
       return this.dialog.closeAll();
     }
     this.router.navigate(['/cadastro/empresa']);
