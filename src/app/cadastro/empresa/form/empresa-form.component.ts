@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelect } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Empresa } from '../../../shared/models/empresa.model';
 
@@ -30,10 +31,15 @@ export class EmpresaFormComponent implements OnInit {
   cnpjmask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   cepmask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
+  empresa: Empresa;
+  temRota: boolean = true;
+  width: string;
+
   constructor(
     private router: Router,
     private snackbar: MatSnackBar,
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     private service: EmpresaService,
     private categoriaService: CategoriaService,
     private fb: FormBuilder,
@@ -44,12 +50,18 @@ export class EmpresaFormComponent implements OnInit {
     this.empresaId = this.route.snapshot.paramMap.get('id');
     this.gerarForm();
 
+    if (!this.route.snapshot.routeConfig) {
+      this.temRota = false;
+    }
+    this.width = this.temRota ? '80' : '100';
+
     if (this.empresaId != null) {
       this.buscar();
     }
 
     this.listarCategorias();
   }
+
 
   gerarForm() {
     this.form = this.fb.group({
@@ -93,11 +105,11 @@ export class EmpresaFormComponent implements OnInit {
       return;
     }
 
-    let empresa: Empresa = this.form.value;
-    empresa.categoria = new Categoria(this.categoriaId);
-    console.log(empresa);
-    this.service.cadastrar(empresa).subscribe(
+    this.empresa = this.form.value as Empresa;
+    this.empresa.categoria = new Categoria(this.categoriaId);
+    this.service.cadastrar(this.empresa).subscribe(
       data => {
+        this.empresa = data as Empresa;
         this.snackbar.open('Cadastro concluído!', 'Sucesso', {
           duration: 3000,
           panelClass: ['ok'],
@@ -150,6 +162,9 @@ export class EmpresaFormComponent implements OnInit {
   }
 
   voltar() {
+    if (!this.temRota) {
+      return this.dialog.closeAll();
+    }
     this.router.navigate(['/cadastro/empresa']);
   }
 

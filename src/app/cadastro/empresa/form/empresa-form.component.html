@@ -1,6 +1,6 @@
 <div style="margin: 20px;" class="grid-container">
     <h1 class="mat-h1">Empresa</h1>
-    <mat-card class="dashboard-card" style="width: 80%;">
+    <mat-card class="dashboard-card" [ngStyle]="{'width.%': width}">
         <mat-card-content class="dashboard-card-content">
             <form [formGroup]="form" novalidate>
                 <input matInput formControlName="id" style="display: none;">

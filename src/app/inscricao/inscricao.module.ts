@@ -25,6 +25,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { TextMaskModule } from 'angular2-text-mask';
 
+import { CadastroModule } from '../cadastro/cadastro.module';
+
 import { InscricaoFormComponent } from './form/inscricao-form.component';
 import { InscricaoService } from '../shared/services/inscricao/inscricao.service';
 import { CategoriaService } from '../shared/services/cadastro/categoria.service';
@@ -40,7 +42,7 @@ import { PtBrMatPaginatorIntl } from '../shared/pt-br-mat-paginator-intl';
 @NgModule({
   declarations: [
     InscricaoFormComponent,
-    InscricaoListarComponent
+    InscricaoListarComponent,
   ],
   imports: [
     CommonModule,
@@ -66,7 +68,8 @@ import { PtBrMatPaginatorIntl } from '../shared/pt-br-mat-paginator-intl';
     MatAutocompleteModule,
     MatSelectModule,
     MatPaginatorModule,
-    TextMaskModule
+    TextMaskModule,
+    CadastroModule
   ],
   providers: [
     InscricaoService,

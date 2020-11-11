@@ -1,6 +1,7 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelect } from '@angular/material/select';
@@ -18,6 +19,8 @@ import { CategoriaService } from '../../shared/services/cadastro/categoria.servi
 import { EmpresaService } from '../../shared/services/cadastro/empresa.service';
 import { EventoService } from '../../shared/services/cadastro/evento.service';
 import { ParticipanteService } from '../../shared/services/cadastro/participante.service';
+
+import { EmpresaFormComponent } from '../../cadastro/empresa/form/empresa-form.component';
 
 import { CepService } from '../../shared/services/utils/cep.service';
 
@@ -55,6 +58,7 @@ export class InscricaoFormComponent implements OnInit {
     private snackbar: MatSnackBar,
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     private service: InscricaoService,
     private categoriaService: CategoriaService,
     private empresaService: EmpresaService,
@@ -267,6 +271,19 @@ export class InscricaoFormComponent implements OnInit {
 
   empresaSelecionada(event: any) {
     this.empresaId = event.option.id;
+  }
+
+  empresaDialog() {
+    const dialog = this.dialog.open(EmpresaFormComponent, { width: '800px' });
+    dialog.afterClosed().subscribe(d => {
+      let empresa = dialog.componentInstance.empresa;
+
+      if (empresa?.id != null) {
+        this.empresas.push(empresa);
+        this.formParticipante.get('empresa').setValue(empresa.nomeFantasia);
+        this.empresaId = empresa.id;
+      }
+    });
   }
 
   voltar() {
