@@ -11,10 +11,12 @@
                             <mat-form-field class="full-width">
                                 <mat-label>Evento</mat-label>
                                 <input type="text" matInput formControlName="evento" [matAutocomplete]="auto">
-                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="eventoSelecionado($event)">
-                                <mat-option *ngFor="let evento of eventosFiltrados | async" [value]="evento.nome" [id]="evento.id">
-                                    {{evento.nome}}
-                                </mat-option>
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                                    (optionSelected)="eventoSelecionado($event)">
+                                    <mat-option *ngFor="let evento of eventosFiltrados | async" [value]="evento.nome"
+                                        [id]="evento.id">
+                                        {{evento.nome}}
+                                    </mat-option>
                                 </mat-autocomplete>
                             </mat-form-field>
                         </td>
@@ -29,7 +31,8 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CPF</mat-label>
-                                <input matInput formControlName="cpf" [textMask]="{mask: cpfmask, guide: false}" (blur)="buscarParticipante()">
+                                <input matInput formControlName="cpf" [textMask]="{mask: cpfmask, guide: false}"
+                                    (blur)="buscarParticipante()">
                             </mat-form-field>
                         </td>
                         <td>
@@ -40,7 +43,7 @@
                         </td>
                     </tr>
                 </table>
-                
+
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
@@ -52,12 +55,13 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}" (blur)="configurarEndereco();">
+                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}"
+                                    (blur)="buscarEndereco();">
                             </mat-form-field>
                         </td>
                     </tr>
                 </table>
-                
+
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
@@ -68,7 +72,7 @@
                         </td>
                     </tr>
                 </table>
-                
+
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
@@ -91,7 +95,7 @@
                         </td>
                     </tr>
                 </table>
-                
+
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
@@ -107,29 +111,33 @@
                             <mat-form-field class="full-width">
                                 <mat-label>Empresa</mat-label>
                                 <input type="text" matInput formControlName="empresa" [matAutocomplete]="autoEmpresa">
-                                <mat-autocomplete autoActiveFirstOption #autoEmpresa="matAutocomplete" (optionSelected)="empresaSelecionada($event)">
-                                    <mat-option *ngFor="let empresa of empresasFiltradas | async" [value]="empresa.nomeFantasia" [id]="empresa.id">
+                                <mat-autocomplete autoActiveFirstOption #autoEmpresa="matAutocomplete"
+                                    (optionSelected)="empresaSelecionada($event)">
+                                    <mat-option *ngFor="let empresa of empresasFiltradas | async"
+                                        [value]="empresa.nomeFantasia" [id]="empresa.id">
                                         {{empresa.nomeFantasia}}
                                     </mat-option>
                                 </mat-autocomplete>
                             </mat-form-field>
                         </td>
                         <td style="width: 20px;">
-                            <button type="button" mat-raised-button color="basic" (click)="empresaDialog();" >
+                            <button type="button" mat-raised-button color="basic" (click)="empresaDialog();">
                                 <span class="material-icons">add</span>
                             </button>
                         </td>
                     </tr>
                 </table>
-                </form>
-                <br>
-                <mat-divider></mat-divider>
-                <br>
-                <div style="text-align:center;">
-                    <button type="button" mat-raised-button color="basic" (click)="voltar()">Voltar</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" mat-raised-button color="primary" [disabled]="form.invalid || formParticipante.invalid" (click)="salvar()">Salvar</button>
-                </div>
-            
+            </form>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <div style="text-align:center;">
+                <button type="button" mat-raised-button color="basic"
+                    (click)="voltar()">Voltar</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" mat-raised-button color="primary"
+                    [disabled]="form.invalid || formParticipante.invalid" (click)="salvar()">Salvar</button>
+            </div>
+
         </mat-card-content>
     </mat-card>
 </div>

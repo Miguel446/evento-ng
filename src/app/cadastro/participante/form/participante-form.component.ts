@@ -164,31 +164,21 @@ export class ParticipanteFormComponent implements OnInit {
     this.empresaId = event.option.id;
   }
 
-  configurarEndereco() {
+  buscarEndereco() {
     const cep = this.form.get('cep').value;
     this.cepService.buscar(cep).subscribe(
       data => {
         if (data.erro) {
-          return this.limparEndereco('CEP não encontrado');;
+          this.cepService.limpar(this.form);
+          return this.snackbar.open('CEP não encontrado', 'Erro', { duration: 3000 });
         }
-        this.form.get('cep').setValue(data.cep);
-        this.form.get('endereco').setValue(data.logradouro);
-        this.form.get('bairro').setValue(data.bairro);
-        this.form.get('cidade').setValue(data.localidade);
-        this.form.get('estado').setValue(data.uf);
+        this.cepService.carregar(data, this.form);
       },
       e => {
-        this.limparEndereco('Erro ao buscar CEP');
+        this.cepService.limpar(this.form);
+        this.snackbar.open('Não foi possível buscar o CEP', 'Erro', { duration: 3000 });
       }
     );
-  }
-
-  limparEndereco(msg: string) {
-    this.form.get('endereco').setValue('');
-    this.form.get('bairro').setValue('');
-    this.form.get('cidade').setValue('');
-    this.form.get('estado').setValue('');
-    this.snackbar.open(msg, 'Erro', { duration: 3000 });
   }
 
   voltar() {

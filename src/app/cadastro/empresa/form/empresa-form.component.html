@@ -32,7 +32,8 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}" (blur)="configurarEndereco();">
+                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}"
+                                    (blur)="buscarEndereco();">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -67,7 +68,7 @@
                             <mat-form-field class="full-width">
                                 <mat-label>UF</mat-label>
                                 <input matInput placeholder="Ex: PA" formControlName="estado">
-                                
+
                             </mat-form-field>
                         </td>
                     </tr>
@@ -90,8 +91,10 @@
                 <mat-divider></mat-divider>
                 <br>
                 <div style="text-align:center;">
-                    <button type="button" mat-raised-button (click)="voltar()" color="basic">Voltar</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" mat-raised-button color="primary" [disabled]="form.invalid" (click)="salvar()">Salvar</button>
+                    <button type="button" mat-raised-button (click)="voltar()"
+                        color="basic">Voltar</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" mat-raised-button color="primary" [disabled]="form.invalid"
+                        (click)="salvar()">Salvar</button>
                 </div>
             </form>
         </mat-card-content>

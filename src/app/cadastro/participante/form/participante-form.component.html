@@ -32,7 +32,8 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>CEP</mat-label>
-                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}" (blur)="configurarEndereco();">
+                                <input matInput formControlName="cep" [textMask]="{mask: cepmask, guide: false}"
+                                    (blur)="buscarEndereco();">
                             </mat-form-field>
                         </td>
                     </tr>
@@ -48,7 +49,7 @@
                         </td>
                     </tr>
                 </table>
-            
+
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
@@ -89,7 +90,8 @@
                                 <input type="text" matInput formControlName="empresa" [matAutocomplete]="autoEmpresa">
                                 <mat-autocomplete autoActiveFirstOption #autoEmpresa="matAutocomplete"
                                     (optionSelected)="empresaSelecionada($event)">
-                                    <mat-option *ngFor="let empresa of empresasFiltradas | async" [value]="empresa.nomeFantasia" [id]="empresa.id">
+                                    <mat-option *ngFor="let empresa of empresasFiltradas | async"
+                                        [value]="empresa.nomeFantasia" [id]="empresa.id">
                                         {{empresa.nomeFantasia}}
                                     </mat-option>
                                 </mat-autocomplete>
@@ -101,10 +103,11 @@
                 <mat-divider></mat-divider>
                 <br>
                 <div style="text-align:center;">
-                    <button type="button" mat-raised-button color="basic" (click)="voltar()">Voltar</button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" mat-raised-button color="primary" [disabled]="form.invalid" (click)="salvar()">Salvar</button> </div>
+                    <button type="button" mat-raised-button color="basic"
+                        (click)="voltar()">Voltar</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" mat-raised-button color="primary" [disabled]="form.invalid"
+                        (click)="salvar()">Salvar</button> </div>
             </form>
         </mat-card-content>
     </mat-card>
 </div>
-

@@ -238,31 +238,21 @@ export class InscricaoFormComponent implements OnInit {
     this.empresaId = p?.empresa.id;
   }
 
-  configurarEndereco() {
-    const cep = this.formParticipante.get('cep').value;
+  buscarEndereco() {
+    const cep = this.form.get('cep').value;
     this.cepService.buscar(cep).subscribe(
       data => {
         if (data.erro) {
-          return this.limparEndereco('CEP não encontrado');;
+          this.cepService.limpar(this.form);
+          return this.snackbar.open('CEP não encontrado', 'Erro', { duration: 3000 });
         }
-        this.formParticipante.get('cep').setValue(data.cep);
-        this.formParticipante.get('endereco').setValue(data.logradouro);
-        this.formParticipante.get('bairro').setValue(data.bairro);
-        this.formParticipante.get('cidade').setValue(data.localidade);
-        this.formParticipante.get('estado').setValue(data.uf);
+        this.cepService.carregar(data, this.form);
       },
       e => {
-        this.limparEndereco('Erro ao buscar CEP');
+        this.cepService.limpar(this.form);
+        this.snackbar.open('Não foi possível buscar o CEP', 'Erro', { duration: 3000 });
       }
     );
-  }
-
-  limparEndereco(msg: string) {
-    this.formParticipante.get('endereco').setValue('');
-    this.formParticipante.get('bairro').setValue('');
-    this.formParticipante.get('cidade').setValue('');
-    this.formParticipante.get('estado').setValue('');
-    this.snackbar.open(msg, 'Erro', { duration: 3000 });
   }
 
   eventoSelecionado(event: any) {
