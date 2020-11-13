@@ -37,6 +37,6 @@ export class InscricaoService {
   }
 
   gerarCracha(nome: string): Observable<any> {
-    return this.http.get(env.baseUrl + this.PATH + '/encurtaNome?nome=' + nome);
+    return this.http.get(env.baseUrl + this.PATH + '/encurtaNome/' + nome);
   }
 }
