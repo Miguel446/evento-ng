@@ -35,4 +35,8 @@ export class InscricaoService {
   remover(id: number): Observable<any> {
     return this.http.delete(env.baseUrl + this.PATH + '/' + id);
   }
+
+  gerarCracha(nome: string): Observable<any> {
+    return this.http.get(env.baseUrl + this.PATH + '/encurtaNome?nome=' + nome);
+  }
 }

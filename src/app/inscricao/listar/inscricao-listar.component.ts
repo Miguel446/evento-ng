@@ -56,7 +56,7 @@ export class InscricaoListarComponent implements OnInit {
     if (!this.eventoSelecionado || this.eventoSelecionado == '') {
       return this.snackbar.open("Por favor, selecione um evento", "Erro", { duration: 3000 });
     }
-    console.log(this.totalLinhas);
+
     this.service.consultar(this.eventoSelecionado.id, this.cpf, this.nome, this.pagina, this.totalLinhas).subscribe(
       data => {
         const inscricoes = data.content as Inscricao[];

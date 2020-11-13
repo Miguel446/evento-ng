@@ -255,6 +255,18 @@ export class InscricaoFormComponent implements OnInit {
     );
   }
 
+  gerarCracha() {
+    const nome = this.formParticipante.get('nome').value;
+    this.service.gerarCracha(nome).subscribe(
+      data => {
+        this.formParticipante.get('cracha').setValue(data.cracha);
+      },
+      e => {
+        this.erroAlert(e);
+      }
+    );
+  }
+
   eventoSelecionado(event: any) {
     this.eventoId = event.option.id;
   }

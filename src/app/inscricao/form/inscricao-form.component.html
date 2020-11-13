@@ -38,7 +38,7 @@
                         <td>
                             <mat-form-field class="full-width">
                                 <mat-label>Nome Completo</mat-label>
-                                <input matInput formControlName="nome">
+                                <input matInput formControlName="nome" (blur)="gerarCracha();">
                             </mat-form-field>
                         </td>
                     </tr>
