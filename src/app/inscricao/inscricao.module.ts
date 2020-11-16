@@ -23,6 +23,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { CadastroModule } from '../cadastro/cadastro.module';
@@ -70,6 +72,8 @@ import { PlanilhaComponent } from './planilha/planilha.component';
     MatAutocompleteModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MaterialFileInputModule,
     TextMaskModule,
     CadastroModule
   ],

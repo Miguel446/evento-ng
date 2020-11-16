@@ -39,9 +39,14 @@
                 <table class="full-width" cellspacing="0">
                     <tr>
                         <td>
-                            <mat-form-field class="full-width">
-                                <mat-label>Planilha</mat-label>
-                                <input type="text" matInput formControlName="file">
+                            <mat-form-field appearance="outline" class="full-width">
+                                <mat-label>Arquivo</mat-label>
+                                <ngx-mat-file-input #removableInput formControlName="file" [accept]="'.csv,.xlsx,.xls'">
+                                </ngx-mat-file-input>
+                                <button mat-icon-button matSuffix *ngIf="!removableInput.empty"
+                                    (click)="removableInput.clear($event)">
+                                    <mat-icon>clear</mat-icon>
+                                </button>
                             </mat-form-field>
                         </td>
                     </tr>

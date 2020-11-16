@@ -49,13 +49,12 @@ export class PlanilhaComponent implements OnInit {
     this.form = this.fb.group({
       categoria: ['', [Validators.required, Validators.minLength(3)]],
       empresa: ['', [Validators.required]],
-      file: ['', [Validators.required]],
-      cep: ['', [Validators.required]],
+      file: [undefined, [Validators.required]],
     });
   }
 
   upload() {
-
+    console.log(this.form.value);
   }
 
   listarCategorias() {
