@@ -1,86 +1,88 @@
-<mat-sidenav-container class="sidenav-container" >
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <div class="no-v-scroll">
-    <br>
-    <mat-list-item><img class="logo-empresa" src="assets/img/company-logo.png"> <span class="nome-empresa"> Nome Empresa</span></mat-list-item>
-    <br>
-    <mat-divider></mat-divider>
-    <br>
-    <mat-list-item><img class="logo-user" src="assets/img/az-admin.png"> <span class="username"> ADMIN</span></mat-list-item>
-    <br>
-    <mat-divider></mat-divider>
-    <br>
-    <span style="color: gray;">Menu</span>
-    <ng-scrollbar >
-    <mat-nav-list>
-      <div style="overflow-y: auto;">
-      <mat-expansion-panel hideToggle >
-        <mat-expansion-panel-header>
-          <mat-panel-title (click)="$event.stopPropagation();" (click)="inicio()">
-            <span class="material-icons"> home</span>&nbsp;&nbsp; Inicio
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <span class="material-icons">create</span>&nbsp;&nbsp; Cadastro
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <a mat-list-item (click)="participante()"> Participante </a>
-        <a mat-list-item (click)="empresa()"> Empresa </a>
-        <a mat-list-item (click)="evento()">Evento</a>
-        <!-- <a mat-list-item (click)="forma_pagamento()">Forma de Pagamento</a> -->
-        <a mat-list-item (click)="categoria()">Categoria</a>
-      </mat-expansion-panel>
-      <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title (click)="$event.stopPropagation();" (click)="inscricao()">
-            <span class="material-icons">qr_code_2</span>&nbsp;&nbsp; Inscrição
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <span class="material-icons">monetization_on</span>&nbsp;&nbsp; Caixa
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <a mat-list-item href="#">Recebimentos</a>
-        <a mat-list-item href="#">Pagamentos</a>
-        <a mat-list-item href="#">Fluxo de Caixa</a>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <span class="material-icons">insert_chart_outlined</span>&nbsp;&nbsp; Relatórios
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <a mat-list-item href="#">Formas de Pagamento</a>
-        <a mat-list-item href="#">Vendas</a>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <span class="material-icons">security</span>&nbsp;&nbsp; Segurança
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <a mat-list-item href="#">Usuário</a>
-        <a mat-list-item href="#">Perfil</a>
-      </mat-expansion-panel>
-      <mat-expansion-panel hideToggle >
-        <mat-expansion-panel-header>
-          <mat-panel-title (click)="$event.stopPropagation();">
-            <span class="material-icons"> exit_to_app</span>&nbsp;&nbsp; Sair
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
-      </div>
-    </mat-nav-list>
-    </ng-scrollbar>
+      <br>
+      <mat-list-item><img class="logo-empresa" src="assets/img/company-logo.png"> <span class="nome-empresa"> Nome
+          Empresa</span></mat-list-item>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <mat-list-item><img class="logo-user" src="assets/img/az-admin.png"> <span class="username"> ADMIN</span>
+      </mat-list-item>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+      <span style="color: gray;">Menu</span>
+      <ng-scrollbar>
+        <mat-nav-list>
+          <div style="overflow-y: auto;">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title (click)="$event.stopPropagation();" (click)="inicio()">
+                  <span class="material-icons"> home</span>&nbsp;&nbsp; Inicio
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span class="material-icons">create</span>&nbsp;&nbsp; Cadastro
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <a mat-list-item (click)="participante()"> Participante </a>
+              <a mat-list-item (click)="empresa()"> Empresa </a>
+              <a mat-list-item (click)="evento()">Evento</a>
+              <!-- <a mat-list-item (click)="forma_pagamento()">Forma de Pagamento</a> -->
+              <a mat-list-item (click)="categoria()">Categoria</a>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span class="material-icons">qr_code_2</span>&nbsp;&nbsp; Inscrição
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <a mat-list-item (click)="inscricao()"> Listagem </a>
+              <a mat-list-item (click)="planilha()"> Planilha </a>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span class="material-icons">monetization_on</span>&nbsp;&nbsp; Caixa
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <a mat-list-item href="#">Recebimentos</a>
+              <a mat-list-item href="#">Pagamentos</a>
+              <a mat-list-item href="#">Fluxo de Caixa</a>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span class="material-icons">insert_chart_outlined</span>&nbsp;&nbsp; Relatórios
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <a mat-list-item href="#">Formas de Pagamento</a>
+              <a mat-list-item href="#">Vendas</a>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span class="material-icons">security</span>&nbsp;&nbsp; Segurança
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <a mat-list-item href="#">Usuário</a>
+              <a mat-list-item href="#">Perfil</a>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title (click)="$event.stopPropagation();">
+                  <span class="material-icons"> exit_to_app</span>&nbsp;&nbsp; Sair
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+          </div>
+        </mat-nav-list>
+      </ng-scrollbar>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -104,7 +106,7 @@
 
     <!-- Saída das rotas -->
     <ng-scrollbar>
-    <router-outlet></router-outlet> 
+      <router-outlet></router-outlet>
     </ng-scrollbar>
   </mat-sidenav-content>
 

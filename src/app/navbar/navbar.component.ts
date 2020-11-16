@@ -37,6 +37,10 @@ export class NavbarComponent {
     this.router.navigate(['/inscricao']);
   }
 
+  planilha() {
+    this.router.navigate(['/planilha']);
+  }
+
   categoria() {
     this.router.navigate(['/cadastro/categoria']);
   }

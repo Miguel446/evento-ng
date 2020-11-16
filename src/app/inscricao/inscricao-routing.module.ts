@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { InscricaoFormComponent } from './form/inscricao-form.component';
 import { InscricaoListarComponent } from './listar/inscricao-listar.component';
+import { PlanilhaComponent } from './planilha/planilha.component';
 
 export const routes: Routes = [
     {
@@ -16,6 +17,10 @@ export const routes: Routes = [
     {
         path: 'inscricao/form/:id',
         component: InscricaoFormComponent,
+    },
+    {
+        path: 'planilha',
+        component: PlanilhaComponent
     }
 ];
 

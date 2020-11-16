@@ -38,11 +38,13 @@ import { CepService } from '../shared/services/utils/cep.service';
 import { InscricaoListarComponent } from './listar/inscricao-listar.component';
 
 import { PtBrMatPaginatorIntl } from '../shared/pt-br-mat-paginator-intl';
+import { PlanilhaComponent } from './planilha/planilha.component';
 
 @NgModule({
   declarations: [
     InscricaoFormComponent,
     InscricaoListarComponent,
+    PlanilhaComponent,
   ],
   imports: [
     CommonModule,
