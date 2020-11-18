@@ -4,9 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSelect } from '@angular/material/select';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+import { InscricaoService } from '../../shared/services/inscricao/inscricao.service';
 import { CategoriaService } from '../../shared/services/cadastro/categoria.service';
 import { EmpresaService } from '../../shared/services/cadastro/empresa.service';
 
@@ -35,6 +36,7 @@ export class PlanilhaComponent implements OnInit {
     private router: Router,
     private snackbar: MatSnackBar,
     private fb: FormBuilder,
+    private service: InscricaoService,
     private categoriaService: CategoriaService,
     private empresaService: EmpresaService,
   ) { }
@@ -54,7 +56,30 @@ export class PlanilhaComponent implements OnInit {
   }
 
   upload() {
-    console.log(this.form.value);
+    const nomeEmpresa = this.form.get('empresa').value;
+    let selecionouEmpresa: boolean = this.empresas.filter(e => e.nomeFantasia == nomeEmpresa && e.id == this.empresaId).length == 1 ? true : false;
+    if (!selecionouEmpresa) {
+      return this.snackbar.open('Por favor, selecione a empresa desejada na lista sugerida de empresas', 'Erro', { duration: 3000 });
+    }
+
+    const file = this.form.get('file').value.files[0];
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    this.service.upload(formData, this.categoriaId, this.empresaId).subscribe(
+      data => {
+        this.snackbar.open('Cadastro concluído!', 'Sucesso', {
+          duration: 3000,
+          panelClass: ['ok'],
+        });
+
+        this.voltar();
+      },
+      e => {
+
+        this.erroAlert(e);
+      }
+    );
   }
 
   listarCategorias() {
