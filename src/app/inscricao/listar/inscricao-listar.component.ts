@@ -1,9 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 import { InscricaoService } from '../../shared/services/inscricao/inscricao.service';
 import { Inscricao } from '../../shared/models/inscricao.model';
@@ -18,6 +20,10 @@ import { ConfirmarDialog } from '../../shared/dialogs/remover.dialog';
   styleUrls: ['./inscricao-listar.component.css']
 })
 export class InscricaoListarComponent implements OnInit {
+
+  @ViewChild(MatSelect, { static: true }) matSelect: MatSelect;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  formFiltro: FormGroup;
 
   dataSource: MatTableDataSource<Inscricao>;
   colunas: string[] = ['nome', 'empresa', 'evento', 'acao'];
@@ -36,6 +42,7 @@ export class InscricaoListarComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
     private service: InscricaoService,
@@ -46,6 +53,29 @@ export class InscricaoListarComponent implements OnInit {
     this.pagina = 0;
     this.totalLinhas = 30;
     this.listarEventos();
+
+    this.gerarForm();
+  }
+
+  gerarForm() {
+    this.formFiltro = this.fb.group({
+      nome: [''],
+      cpf: ['']
+    });
+
+    this.formFiltro.get('nome').valueChanges.subscribe(nome => {
+      this.nome = nome;
+      this.pagina = 0;
+      this.paginator.firstPage();
+      this.consultar();
+    });
+
+    this.formFiltro.get('cpf').valueChanges.subscribe(cpf => {
+      this.cpf = cpf;
+      this.pagina = 0;
+      this.paginator.firstPage();
+      this.consultar();
+    });
   }
 
   form() {
@@ -89,6 +119,10 @@ export class InscricaoListarComponent implements OnInit {
         this.errorAlert(e);
       }
     );
+  }
+
+  imprimir(inscricao: Inscricao) {
+    console.log(inscricao);
   }
 
   removerDialog(id: string) {

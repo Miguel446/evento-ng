@@ -147,6 +147,7 @@ export class InscricaoFormComponent implements OnInit {
           panelClass: ['ok'],
         });
 
+        this.imprimir();
         this.voltar();
       },
       e => {
@@ -164,6 +165,10 @@ export class InscricaoFormComponent implements OnInit {
         this.erroAlert(e);
       }
     );
+  }
+
+  imprimir() {
+    // TODO imprimir cracha de inscricao
   }
 
   listarEmpresas() {
